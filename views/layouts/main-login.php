@@ -26,7 +26,7 @@ AppAsset::register($this);
 
     <?php $this->beginBody() ?>
 
-    <div class="login-box">
+    <div class="login-box bg-gradient-white">
         <div class="login-logo">
             <?= Html::img(Yii::getAlias('@web').'/images/cuStore.png') ?>
         </div>

@@ -1,49 +1,71 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
-/** @var app\models\LoginForm $model */
-
-use yii\bootstrap5\ActiveForm;
+use app\models\LoginForm;
 use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
+use yii\web\View;
 
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+/** @var View $this */
+/** @var LoginForm $model */
+
+$this->title = 'Sign In';
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<div class="card">
+    <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n{input}\n{error}",
-            'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-            'inputOptions' => ['class' => 'col-lg-3 form-control'],
-            'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-        ],
-    ]); ?>
+        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'username', [
+            'options' => ['class' => 'form-group has-feedback'],
+            'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"><i class="fas fa-envelope"></i></div></div>',
+            'template' => "{beginWrapper}{input}{error}{endWrapper}",
+            'wrapperOptions' => [
+                'class' => 'input-group mb-3'
+            ]
+        ])
+            ->label(false)
+            ->textInput(['placeholder' => $model->getAttributeLabel('email')]); ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password', [
+            'options' => ['class' => 'form-group has-feedback'],
+            'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"><i class="fas fa-lock"></i></div></div>',
+            'template' => "{beginWrapper}{input}{error}{endWrapper}",
+            'wrapperOptions' => [
+                'class' => 'input-group mb-3'
+            ]
+        ])
+            ->label(false)
+            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]); ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
+        <div class="row">
+            <div class="col-8">
+                <div class="icheck-primary">
+                    <?= $form->field($model, 'rememberMe')->checkbox(); ?>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <div class="col-12">
+                <?= Html::submitButton('Sign In', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']); ?>
             </div>
         </div>
 
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
-    <div class="offset-lg-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+        <div class="social-auth-links text-center mb-3">
+            <p>- OR -</p>
+            <a href="javascript:void(0)" class="btn btn-block btn-outline-primary">
+                <i class="fab fa-google mr-2"></i> Sign in Using Google
+            </a>
+        </div>
+        <!-- /.social-auth-links -->
+        <p class="mb-1 float-left">
+            <a href="javascript:void(0)">Forgot Password</a>
+        </p>
+        <p class="mb-1 float-right">
+            <a href="javascript:void(0)" class="text-center">Register</a>
+        </p>
+
     </div>
 </div>
