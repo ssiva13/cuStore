@@ -1,0 +1,39 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     preserveAspectRatio="xMidYMid meet" viewBox="859 471 131 135">
+    <g data-item-type="text" data-item="Business" id="logo__item--business" class="logo__item">
+        <g class="logo__item__inner"
+           transform="translate(861.2583351135254 603.5784385089522) scale(1 1) rotate(0 0 0)">
+            <text data-part-id="logo__item--business" dy="0" dominant-baseline="auto" alignment-baseline="auto"
+                  font-family="Montserrat" font-size="32px" fill="#F05A28" letter-spacing="0" font-weight="bold"
+                  font-style="normal" data-font-family="Montserrat" data-font-weight="bold" data-font-style="normal"
+                  data-ttf-url="/builder_assets/fontsttf/font-montserrat-bold-normal.ttf">
+                cuStore
+            </text>
+        </g>
+    </g>
+    <g data-item-type="image" data-item="Image" data-logo-item="" id="logo__item--logo_0" class="logo__item">
+        <g class="logo__item__inner"
+           transform="translate(847.4862870560611 443.5) scale(1.5388552979160552 1.5388552979160552) rotate(0 0 0)">
+
+            <g>
+                <circle fill="#F05A28" cx="46.638" cy="27.188" r="3.794" data-part-id="logo__item--logo_0__0"></circle>
+                <path fill="#A6A8AB"
+                      d="M89.361,57.177c0,2.095-1.697,3.793-3.795,3.793c-2.09,0-3.79-1.698-3.79-3.793s1.7-3.789,3.79-3.789   C87.664,53.388,89.361,55.082,89.361,57.177z"
+                      data-part-id="logo__item--logo_0__1"></path>
+                <path fill="#2E3191"
+                      d="M18.969,60.97c0,2.097-1.701,3.794-3.797,3.794c-2.091,0-3.791-1.697-3.791-3.794   c0-2.095,1.7-3.793,3.791-3.793C17.269,57.177,18.969,58.875,18.969,60.97z"
+                      data-part-id="logo__item--logo_0__2"></path>
+                <path fill="#2E3191"
+                      d="M41.389,25.539c0,0-62.494,63.164,34.532,51.343C75.921,76.882,0.771,80.771,41.389,25.539z"
+                      data-part-id="logo__item--logo_0__3"></path>
+                <path fill="#A6A8AB"
+                      d="M59.119,74.152c3.308,0.472,6.419,0.714,8.997,0.84c15.329-7.048,22.53-22.236-19.727-54.967   C48.39,20.025,89.555,56.76,59.119,74.152z"
+                      data-part-id="logo__item--logo_0__4"></path>
+                <path fill="#F05A28"
+                      d="M67.404,53.388c-0.51-2.963-1.602-5.961-3.034-8.874c-7.337-10.847-18.319-18.808-31.188-1.551   c-1.357,3.484-2.083,6.705-2.191,9.644C40.145,42.118,53.556,34.442,67.404,53.388z"
+                      data-part-id="logo__item--logo_0__5"></path>
+            </g>
+
+        </g>
+    </g>
+</svg>
