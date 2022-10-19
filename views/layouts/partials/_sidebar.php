@@ -9,7 +9,7 @@ use yii\web\View;
 ?>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <?= Html::a('<img class="brand-image img-circle elevation-3" src="' . (Yii::getAlias('@web') . '/images/' . env('APP_NAME') . '.png') . '" alt="' . env('APP_NAME') . '"><span class="brand-text font-weight-light">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'brand-link']) ?>
+    <?= Html::a('<img class="brand-image img-circle elevation-3" src="' . (Yii::getAlias('@web') . '/images/cuStore.png') . '" alt="' . env('APP_NAME') . '"><span class="brand-text font-weight-light">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'brand-link']) ?>
     <div class="sidebar">
         <nav class="mt-2">
             <?= Menu::widget(

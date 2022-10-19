@@ -17,7 +17,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'pWXVdaJDRigkaxpMXBidb09btoq7xrvm',
+            'cookieValidationKey' => env('APP_KEY'),
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -32,11 +32,16 @@ $config = [
         'mailer' => [
             'class' => Mailer::class,
             'viewPath' => '@app/mail',
-            'host' => env('SMTP_HOST'),
-            'username' => env('SMTP_USERNAME'),
-            'password' => env('SMTP_PASSOWRD'),
-            'port' => env('SMTP_PORT'),
-            'encryption' => env('SMTP_ENCRYPTION'),
+            'transport' => [
+                'scheme' => env('SMTP_SCHEME'),
+                'host' => env('SMTP_HOST'),
+                'username' => env('SMTP_USERNAME'),
+                'password' => env('SMTP_PASSOWRD'),
+                'port' => env('SMTP_PORT'),
+                'encryption' => env('SMTP_ENCRYPTION'),
+//                'dsn' => 'native://default',
+//                'dsn' => env('MAIL_TRANSPORT').'://'.env('SMTP_USERNAME').':'.env('SMTP_PASSOWRD').'@'.env('SMTP_HOST').':'.env('SMTP_PORT'),
+            ],
             // send all mails to a file by default.
             'useFileTransport' => env('APP_ENV') !== 'prod',
         ],
