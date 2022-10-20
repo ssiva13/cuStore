@@ -46,7 +46,8 @@
     "scripts": {
         "post-install-cmd": [
             "yii\\composer\\Installer::postInstall",
-            "php -r \"copy('.env-example', '.env');\""
+            "php -r \"copy('.env-example', '.env');\"",
+            "php yii cookie-key-generator"
         ],
         "post-create-project-cmd": [
             "yii\\composer\\Installer::postCreateProject",
