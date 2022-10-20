@@ -23,9 +23,10 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/site.js'
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset'
+        'app\assets\AdminLteAsset',
+        'app\assets\AdminLtePluginsAsset',
     ];
 }
