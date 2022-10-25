@@ -2,6 +2,7 @@
 
 use app\widgets\Menu;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /** @var View $this */
@@ -17,7 +18,7 @@ use yii\web\View;
                     'options' => ['class' => 'nav nav-pills nav-sidebar flex-column', 'data-widget' => 'treeview'],
                     'items' => [
                         ['label' => 'Main Menu', 'header' => true],
-                        ['label' => 'Gii', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/gii'], 'visible' => YII_ENV_DEV],
+                        ['label' => 'Users', 'iconType' => 'fas', 'icon' => 'users', 'url' => Url::toRoute(['user/index']), 'visible' => YII_ENV_DEV],
                         [
                             'label' => 'Debug Menu',
                             'icon' => 'share',

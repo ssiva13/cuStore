@@ -7,7 +7,7 @@ use yii\web\View;
 
 /** @var View $this */
 /** @var string $content */
-
+$page = str_contains(Yii::$app->request->url, 'register') ? 'register' : 'login';
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -22,11 +22,11 @@ AppAsset::register($this);
         <?php $this->head() ?>
     </head>
 
-    <body class="login-page">
+    <body class="<?=$page?>-page">
 
     <?php $this->beginBody() ?>
 
-    <div class="login-box bg-gradient-white">
+    <div class="<?=$page?>-box bg-gradient-white">
         <div class="login-logo">
             <?= Html::img(Yii::getAlias('@web').'/images/cuStore.png') ?>
         </div>

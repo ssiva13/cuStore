@@ -7,7 +7,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
+use app\models\form\LoginForm;
+use app\models\form\RegisterForm;
 use app\models\ContactForm;
 
 class SiteController extends Controller
@@ -95,8 +96,8 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
-        return $this->goHome();
+    
+        return $this->redirect('login');
     }
 
     /**
@@ -126,4 +127,31 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+    
+    /**
+     * Login action.
+     *
+     * @return Response|string
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\db\Exception
+     */
+    public function actionRegister()
+    {
+        $this->layout = 'main-login';
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        
+        $model = new RegisterForm();
+        if ($model->load(Yii::$app->request->post()) && $model->register()) {
+            //send email for confirmation
+            return $this->redirect('login');
+        }
+        $model->password = $model->password_confirm = '';
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
+    
 }
