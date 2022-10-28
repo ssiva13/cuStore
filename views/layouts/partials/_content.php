@@ -3,22 +3,24 @@
 use app\widgets\CustomAlert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
+use yii\helpers\ArrayHelper;
 use yii\web\View;
 
 /** @var View $this */
 /** @var string $content */
 
+$icon = ArrayHelper::getValue($this->params, 'view-icon', 'pe-7s-folder');
 
 ?>
 <div class="content-wrapper">
     <section class="content-header bg-gradient-white">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <?= Breadcrumbs::widget([
                         'links' => $this->params['breadcrumbs'] ?? [],
                         'options' => [
-                            'class' => 'float-sm-right'
+                            'class' => 'float-sm-left'
                         ]
                     ]); ?>
                 </div>

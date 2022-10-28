@@ -21,6 +21,7 @@ use yii\web\IdentityInterface;
  * @property int $active Status
  * @property string|null $last_login_at Last Login
  * @property string $date_created Date Created
+ * @property-read mixed $authKey
  * @property string|null $date_modified Date Modified
  */
 class User extends ActiveRecord implements IdentityInterface

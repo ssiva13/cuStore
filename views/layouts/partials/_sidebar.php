@@ -18,21 +18,24 @@ use yii\web\View;
                     'options' => ['class' => 'nav nav-pills nav-sidebar flex-column', 'data-widget' => 'treeview'],
                     'items' => [
                         ['label' => 'Main Menu', 'header' => true],
-                        ['label' => 'Users', 'iconType' => 'fas', 'icon' => 'users', 'url' => Url::toRoute(['user/index']), 'visible' => YII_ENV_DEV],
+                        ['label' => 'Users', 'iconType' => 'fas', 'icon' => 'users', 'url' => Url::toRoute(['user/index']), 'visible' => !Yii::$app->user->isGuest],
                         [
-                            'label' => 'Debug Menu',
+                            'label' => 'Configuration',
                             'icon' => 'share',
                             'url' => 'javascript:void(0)',
                             'items' => [
                                 ['label' => 'Gii', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/gii'], 'visible' => YII_ENV_DEV],
-                                ['label' => 'Debug', 'icon' => 'tachometer-alt', 'url' => ['/debug'], 'visible' => YII_ENV_DEV],
                                 [
-                                    'label' => 'About '.Yii::$app->name,
+                                    'label' => 'Configs',
                                     'iconType' => 'far',
                                     'icon' => 'circle',
                                     'url' => 'javascript:void(0)',
                                     'items' => [
-                                        ['label' => 'About', 'iconType' => 'far', 'icon' => 'dot-circle', 'url' => ['site/about'], 'visible' => YII_ENV_DEV],
+                                        ['label' => 'Item Categories', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/item-category'], 'visible' =>  !Yii::$app->user->isGuest],
+                                        ['label' => 'Offices', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/office'], 'visible' =>  !Yii::$app->user->isGuest],
+                                        ['label' => 'Buildings', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/building'], 'visible' =>  !Yii::$app->user->isGuest],
+                                        ['label' => 'Building Floors', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/building-floor'], 'visible' =>  !Yii::$app->user->isGuest],
+                                        ['label' => 'Departments', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/department'], 'visible' =>  !Yii::$app->user->isGuest],
                                         [
                                             'label' => 'About '.Yii::$app->name,
                                             'iconType' => 'far',
@@ -47,7 +50,7 @@ use yii\web\View;
                                     'visible' => YII_ENV_DEV
                                 ],
                             ],
-                            'visible' => YII_ENV_DEV
+                            'visible' =>  !Yii::$app->user->isGuest
                         ],
                     ],
                 ]

@@ -1,8 +1,6 @@
 <?php
 
 use app\widgets\DataTable;
-use yii\bootstrap5\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
