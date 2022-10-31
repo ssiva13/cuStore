@@ -4,6 +4,7 @@ use yii\bootstrap5\Html;
 use app\widgets\DataTable;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -23,23 +24,50 @@ $this->params['view-actions'] = [
 ];
 ?>
 <div class="item-category-index box box-primary">
-        <?php Pjax::begin(); ?>
+    <?php Pjax::begin(); ?>
     <div class="box-body table-responsive">
-             <?= DataTable::widget([
+        <?= DataTable::widget([
             'dataProvider' => $dataProvider,
             'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            
-                            'id',
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'id',
                 'name',
                 'slug',
                 'date_created',
                 'date_modified',
-                // 'deleted_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
-            ],
-            ]); ?>
-            </div>
-        <?php Pjax::end(); ?>
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'contentOptions' => ['style' => 'width: 8.7%'],
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::button('View', [
+                                'value' => $url, 'class' => 'm-2 btn-transition border-0 btn btn-info showModalButton',
+                                'title' => "View $model->name"
+                            ]);
+                        },
+                        'update' => function ($url, $model) {
+                            return Html::button('Edit', [
+                                'value' => $url, 'class' => 'm-2 btn-transition border-0 btn btn-warning showModalButton',
+                                'title' => "Edit $model->name"
+                            ]);
+                        },
+                        'delete' => function ($url, $model) {
+                            return Html::a('Delete', $url,
+                                [
+                                    'value' => $url, 'class' => 'm-2 btn-transition border-0 btn btn-danger',
+                                    'title' => "Delete $model->name",
+                                    'data' => [
+                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'method' => 'post',
+                                    ]
+                                ]
+                            );
+                        },
+                    ],
+                ],
+            ]
+        ]); ?>
+    </div>
+    <?php Pjax::end(); ?>
 </div>

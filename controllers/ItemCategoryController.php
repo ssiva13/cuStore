@@ -44,16 +44,22 @@ class ItemCategoryController extends BaseController
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     /**
      * Displays a single ItemCategory model.
      *
      * @param int $id ID
      *
-     * @return mixed
+     * @return string
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
+        if(Yii::$app->request->isAjax){
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -72,7 +78,12 @@ class ItemCategoryController extends BaseController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        
+        Yii::$app->session->setFlash('error', ['title' => 'error', 'message' => 'Error Messssssage']);
+        if(Yii::$app->request->isAjax){
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+        }
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -93,7 +104,12 @@ class ItemCategoryController extends BaseController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        
+
+        if(Yii::$app->request->isAjax){
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+        }
         return $this->render('update', [
             'model' => $model,
         ]);
