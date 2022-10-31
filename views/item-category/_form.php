@@ -13,16 +13,10 @@ use yii\bootstrap5\ActiveForm;
         'id' => "item-category-form",
     ]); ?>
     <div class="box-body table-responsive">
-        
-                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'date_created')->textInput() ?>
-
-        <?= $form->field($model, 'date_modified')->textInput() ?>
-
-        <?= $form->field($model, 'deleted_at')->textInput() ?>
 
     </div>
     <div class="box-footer">

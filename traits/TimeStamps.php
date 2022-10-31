@@ -38,4 +38,12 @@ trait TimeStamps
             $this->active = $this->active ? Html::tag('span', 'Active', ['class' => 'badge bg-success']) : Html::tag('span', 'Inactive', ['class' => 'badge bg-danger']);
         }
     }
+
+    public function beforeValidate(){
+        $this->date_created = ($this->date_created) ? Carbon::parse($this->date_created) : $this->date_created;
+        $this->date_modified = ($this->date_modified) ? Carbon::parse($this->date_modified) : $this->date_modified;
+        if($this->hasAttribute('last_login_at') && $this->last_login_at){
+            $this->last_login_at = Carbon::parse($this->last_login_at);
+        }
+    }
 }

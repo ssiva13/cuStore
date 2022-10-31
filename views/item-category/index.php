@@ -16,9 +16,10 @@ $this->params['view-icon'] = 'pe-7s-folder';
 $this->params['view-actions'] = [
     [
         'type' => 'link',
-        'content' => Html::a('Create Category', Url::toRoute(['item-category/create']), [
+        'content' => Html::button('Create Category', [
             'title' => 'Create Category',
-            'class' => 'btn-link dropdown-item',
+            'value' => Url::toRoute(['item-category/create']),
+            'class' => 'btn-link dropdown-item showModalButton',
         ])
     ],
 ];
@@ -30,12 +31,8 @@ $this->params['view-actions'] = [
             'dataProvider' => $dataProvider,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-
-                'id',
                 'name',
                 'slug',
-                'date_created',
-                'date_modified',
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'contentOptions' => ['style' => 'width: 8.7%'],
