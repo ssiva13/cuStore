@@ -1,8 +1,7 @@
 <?php
 
-use app\widgets\CustomAlert;
+use app\widgets\Toastr;
 use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Html;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
 
@@ -11,13 +10,21 @@ use yii\web\View;
 
 $icon = ArrayHelper::getValue($this->params, 'view-icon', 'pe-7s-folder');
 $actions = $this->params['view-actions'] ?? [];
+$flashes = Yii::$app->session->getAllFlashes();
 ?>
-<!--start toastr message here-->
-<!--end toastr message here-->
-<div class="content-wrapper">
+<!--start toastr messages here-->
+<?php foreach ($flashes as $type => $flash): ?>
+    <?= Toastr::widget([
+            'type' => $type,
+            'title' => $flash['title'] ?? '',
+            'message' => $flash['message'] ?? '',
+    ]) ?>
+<?php endforeach; ?>
+<!--end toastr messages here-->
+<div class="content-wrapper p-2">
     <section class="content-header bg-gradient-white">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row p-2 mt-2 mb-2">
                 <div class="col-sm-6">
                     <?= Breadcrumbs::widget([
                         'links' => $this->params['breadcrumbs'] ?? [],
