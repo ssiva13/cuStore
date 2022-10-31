@@ -2,6 +2,7 @@
 
 use app\assets\AppAsset;
 use yii\bootstrap5\Html;
+use yii\bootstrap5\Modal;
 use yii\web\View;
 
 /** @var View $this */
@@ -45,6 +46,33 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
         ) ?>
 
     </div>
+
+    <?php
+    Modal::begin([
+        'headerOptions' => ['id' => 'main-modalHeader', 'class' => 'bg-heavy-rain'],
+        'id' => 'main-modal',
+        'size' => Modal::SIZE_DEFAULT,
+        'options' => ['class' => 'modal fade'],
+        'closeButton' => [
+            'id' => 'close-button',
+            'class' => 'btn-close',
+            'tag' => 'button',
+            "aria-label" => "Close",
+            'data-bs-dismiss' => 'modal',
+        ],
+        'clientOptions' => [
+            'backdrop' => 'static',
+            'keyboard' => false,
+        ],
+        'footer' => '&copy; '.date('Y'),
+        'footerOptions' => ['id' => 'main-modalFooter', 'class' => 'text-center bg-heavy-rain'],
+    ]);
+    echo "
+    <div id='mainModalContent' style='max-height: 500px; overflow-y: auto; overflow-x: hidden;'>
+        <div style='text-align:center'>".Html::img('@web/images/loader.gif')."</div>
+    </div>";
+    Modal::end();
+    ?>
 
     <?php $this->endBody() ?>
     </body>
