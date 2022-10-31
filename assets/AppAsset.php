@@ -23,7 +23,8 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/site.js'
+        'js/site.js',
+        'js/override.js'
     ];
     public $depends = [
         'app\assets\AdminLteAsset',
