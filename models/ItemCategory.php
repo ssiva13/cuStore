@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\traits\SoftDeletes;
+use app\traits\TimeStamps;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -19,6 +21,7 @@ use yii\db\ActiveRecord;
  */
 class ItemCategory extends ActiveRecord
 {
+    use SoftDeletes, TimeStamps;
     /**
      * {@inheritdoc}
      */
