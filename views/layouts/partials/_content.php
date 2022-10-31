@@ -10,8 +10,10 @@ use yii\web\View;
 /** @var string $content */
 
 $icon = ArrayHelper::getValue($this->params, 'view-icon', 'pe-7s-folder');
-
+$actions = $this->params['view-actions'] ?? [];
 ?>
+<!--start toastr message here-->
+<!--end toastr message here-->
 <div class="content-wrapper">
     <section class="content-header bg-gradient-white">
         <div class="container-fluid">
@@ -24,12 +26,26 @@ $icon = ArrayHelper::getValue($this->params, 'view-icon', 'pe-7s-folder');
                         ]
                     ]); ?>
                 </div>
+                <div class="col-sm-6">
+                    <div class="float-sm-right nav-item dropdown-center dropleft">
+                        <button class="btn btn-default" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>Page Actions</span>
+                            <i class="fa fa-tasks"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="right: 0 !important;">
+                            <span class="dropdown-header">Page Actions</span>
+                            <?php foreach ($actions as $action): ?>
+                                <div class="dropdown-divider"></div>
+                                <?= $action['content'] ?>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="content">
-        <?= CustomAlert::widget(); ?>
         <?= $content ?>
     </section>
 </div>

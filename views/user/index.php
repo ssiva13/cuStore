@@ -9,6 +9,7 @@ use yii\widgets\Pjax;
 
 $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['view-actions'] = [];
 ?>
 <div class="user-index box box-primary">
     <?php Pjax::begin(); ?>

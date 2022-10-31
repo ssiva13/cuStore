@@ -6,6 +6,7 @@
 $this->title = 'Create Building';
 $this->params['breadcrumbs'][] = ['label' => 'Buildings', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['view-actions'] = [];
 ?>
 <div class="building-create">
     

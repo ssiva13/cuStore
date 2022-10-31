@@ -3,6 +3,7 @@
 use app\models\form\LoginForm;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\Url;
 use yii\web\View;
 
 /** @var View $this */
@@ -64,7 +65,7 @@ $this->title = 'Sign In';
             <a href="javascript:void(0)">Forgot Password</a>
         </p>
         <p class="mb-1 float-right">
-            <a href="javascript:void(0)" class="text-center">Register</a>
+            <?= Html::a('Register', Url::toRoute(['site/register']), ['class' => 'text-center']) ?>
         </p>
 
     </div>

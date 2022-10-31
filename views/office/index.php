@@ -8,6 +8,7 @@ use yii\widgets\Pjax;
 
 $this->title = 'Offices';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['view-actions'] = [];
 ?>
 <div class="office-index box box-primary">
         <?php Pjax::begin(); ?>

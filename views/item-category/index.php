@@ -15,10 +15,9 @@ $this->params['view-icon'] = 'pe-7s-folder';
 $this->params['view-actions'] = [
     [
         'type' => 'link',
-        'content' => Html::a(' Add New User (DB Users)', Url::to(['/user/user/create']), [
-            'title' => 'Add New DB user',
-            'class' => 'btn-link',
-            'style' => 'margin-left: 10px;',
+        'content' => Html::a('Create Category', Url::toRoute(['item-category/create']), [
+            'title' => 'Create Category',
+            'class' => 'btn-link dropdown-item',
         ])
     ],
 ];

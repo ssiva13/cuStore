@@ -7,6 +7,7 @@ $this->title = 'Update Office: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Offices', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+$this->params['view-actions'] = [];
 ?>
 <div class="office-update">
     

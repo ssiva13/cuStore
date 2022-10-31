@@ -7,6 +7,7 @@ $this->title = 'Update Item Category: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Item Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+$this->params['view-actions'] = [];
 ?>
 <div class="item-category-update">
     

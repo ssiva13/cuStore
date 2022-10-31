@@ -7,6 +7,7 @@ $this->title = 'Update Building Floor: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Building Floors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+$this->params['view-actions'] = [];
 ?>
 <div class="building-floor-update">
     
