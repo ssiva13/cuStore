@@ -74,11 +74,14 @@ class ItemCategoryController extends BaseController
     public function actionCreate()
     {
         $model = new ItemCategory();
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()) {
+                Yii::$app->session->setFlash('success', ['message' => id2human(Yii::$app->controller->id) . " Saved Successfully!"]);
+            }else {
+                Yii::$app->session->setFlash('error', ['message' => id2human(Yii::$app->controller->id) . " Not Saved!"]);
+            }
+            return $this->redirect(Yii::$app->request->referrer);
         }
-        Yii::$app->session->setFlash('error', ['title' => 'error', 'message' => 'Error Messssssage']);
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('create', [
                 'model' => $model,
