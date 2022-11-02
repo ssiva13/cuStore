@@ -2,8 +2,7 @@
 
 namespace app\models;
 
-use app\traits\SoftDeletes;
-use app\traits\TimeStamps;
+use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -25,7 +24,7 @@ use yii\db\ActiveRecord;
  */
 class Office extends ActiveRecord
 {
-    use SoftDeletes, TimeStamps;
+    use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
     /**
      * {@inheritdoc}
      */

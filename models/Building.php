@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -24,6 +25,7 @@ use yii\db\ActiveRecord;
  */
 class Building extends ActiveRecord
 {
+    use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
     /**
      * {@inheritdoc}
      */

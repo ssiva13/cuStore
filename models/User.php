@@ -2,9 +2,7 @@
 
 namespace app\models;
 
-use app\traits\SoftDeleteTrait;
-use app\traits\TimeStampsTrait;
-use app\traits\ValidationTrait;
+use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use Carbon\Carbon;
 use Exception;
 use Yii;
