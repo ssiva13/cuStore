@@ -23,7 +23,8 @@ $this->params['view-actions'] = [];
                 'username',
                 'email:email',
                 [
-                    'attribute' => 'active',
+                    'attribute' => 'active_string',
+                    'header' => 'Status',
                     'format' => 'raw'
                 ],
                 'last_login_at',
