@@ -2,8 +2,10 @@
 
 namespace app\models;
 
-use app\traits\SoftDeletes;
-use app\traits\TimeStamps;
+use app\traits\SoftDeleteTrait;
+use app\traits\TimeStampsTrait;
+use app\traits\ValidationTrait;
+use Carbon\Carbon;
 use Exception;
 use Yii;
 use yii\db\ActiveRecord;
@@ -26,7 +28,16 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    use SoftDeletes, TimeStamps;
+    use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
+    
+    const EVENT_NEW_LOGIN='new_login';
+    
+    public function init()
+    {
+        $this->on(self::EVENT_NEW_LOGIN, [$this, 'updateLastLogin']);
+        parent::init();
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -161,6 +172,11 @@ class User extends ActiveRecord implements IdentityInterface
             Yii::warning($exception->getMessage());
             throw $exception;
         }
+    }
+    
+    protected function updateLastLogin(){
+        $this->last_login_at = Carbon::now();
+        $this->save();
     }
     
 }
