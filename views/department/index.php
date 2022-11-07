@@ -2,13 +2,23 @@
 
 use yii\bootstrap5\Html;
 use app\widgets\DataTable;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Departments';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['view-actions'] = [];
+$this->params['view-actions'] = [
+    [
+        'type' => 'link',
+        'content' => Html::button('Create Department', [
+            'title' => 'Create Department',
+            'value' => Url::toRoute(['department/create']),
+            'class' => 'btn-link dropdown-item showModalButton',
+        ])
+    ],
+];
 ?>
 <div class="department-index box box-primary">
         <?php Pjax::begin(); ?>

@@ -1,8 +1,8 @@
 <?php
 
+use yii\helpers\Url;
 use yii\bootstrap5\Html;
 use app\widgets\DataTable;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,13 +10,14 @@ use yii\widgets\Pjax;
 $this->title = 'Buildings';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['view-actions'] = [
-    [
-        'type' => 'link',
-        'content' => Html::a('Create Building', Url::toRoute(['building/create']), [
-            'title' => 'Create Building',
-            'class' => 'btn-link dropdown-item',
-        ])
-    ],
+[
+'type' => 'link',
+'content' => Html::button("Create {$this->title}", [
+'title' => "Create {$this->title}",
+'value' => Url::toRoute(['building/create']),
+'class' => 'btn-link dropdown-item showModalButton',
+])
+],
 ];
 ?>
 <div class="building-index box box-primary">

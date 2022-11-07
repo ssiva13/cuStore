@@ -2,13 +2,23 @@
 
 use yii\bootstrap5\Html;
 use app\widgets\DataTable;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Building Floors';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['view-actions'] = [];
+$this->params['view-actions'] = [
+    [
+        'type' => 'link',
+        'content' => Html::button('Create Floor', [
+            'title' => 'Create Floor',
+            'value' => Url::toRoute(['building-floor/create']),
+            'class' => 'btn-link dropdown-item showModalButton',
+        ])
+    ],
+];
 ?>
 <div class="building-floor-index box box-primary">
         <?php Pjax::begin(); ?>
