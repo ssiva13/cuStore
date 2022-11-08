@@ -5,9 +5,9 @@ namespace app\controllers;
 use Yii;
 use app\models\ItemCategory;
 use yii\data\ActiveDataProvider;
-use app\controllers\BaseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * ItemCategoryController implements the CRUD actions for ItemCategory model.
@@ -17,7 +17,7 @@ class ItemCategoryController extends BaseController
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'verbs' => [
@@ -32,9 +32,10 @@ class ItemCategoryController extends BaseController
     /**
      * Lists all ItemCategory models.
      *
-     * @return mixed
+     * @return string
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $dataProvider = new ActiveDataProvider([
             'query' => ItemCategory::find(),
@@ -53,7 +54,7 @@ class ItemCategoryController extends BaseController
      * @return string
      * @throws NotFoundHttpException
      */
-    public function actionView($id)
+    public function actionView(int $id): string
     {
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('view', [
@@ -69,9 +70,9 @@ class ItemCategoryController extends BaseController
      * Creates a new ItemCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      *
-     * @return mixed
+     * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate(): Response|string
     {
         $model = new ItemCategory();
         if ($model->load(Yii::$app->request->post())) {
@@ -98,14 +99,19 @@ class ItemCategoryController extends BaseController
      *
      * @param int $id ID
      *
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id): Response|string
     {
         $model = $this->findModel($id);
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()) {
+                Yii::$app->session->setFlash('success', ['message' => id2human(Yii::$app->controller->id) . " Updated Successfully!"]);
+            }else {
+                Yii::$app->session->setFlash('error', ['message' => id2human(Yii::$app->controller->id) . " Not Updated!"]);
+            }
+            return $this->redirect(Yii::$app->request->referrer);
         }
 
         if(Yii::$app->request->isAjax){
@@ -124,12 +130,21 @@ class ItemCategoryController extends BaseController
      *
      * @param int $id ID
      *
-     * @return mixed
+     * @return \yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id): Response
     {
-        $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+            $delete = $this->findModel($id)->delete();
+            if($delete) {
+                Yii::$app->session->setFlash('success', ['message' => id2human(Yii::$app->controller->id) . " Deleted Successfully!"]);
+            }else {
+                Yii::$app->session->setFlash('error', ['message' => id2human(Yii::$app->controller->id) . " Not Deleted!"]);
+            }
+            return $this->redirect(Yii::$app->request->referrer);
+
     }
     
     /**
@@ -141,7 +156,7 @@ class ItemCategoryController extends BaseController
      * @return ItemCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id): ItemCategory
     {
         if (($model = ItemCategory::findOne($id)) !== null) {
             return $model;
