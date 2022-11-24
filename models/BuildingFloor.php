@@ -5,6 +5,7 @@ namespace app\models;
 use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%building_floors}}".
@@ -19,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property string|null $deleted_at Date Deleted
  *
  * @property Building $fkBuilding
+ * @property-read mixed $allBuildings
  * @property Office[] $offices
  */
 class BuildingFloor extends ActiveRecord
@@ -57,7 +59,7 @@ class BuildingFloor extends ActiveRecord
             'id' => 'ID',
             'floor_number' => 'Floor Number',
             'floor_code' => 'Floor Code',
-            'fk_building' => 'Fk Building',
+            'fk_building' => 'Building',
             'description' => 'Description',
             'date_created' => 'Date Created',
             'date_modified' => 'Date Modified',
@@ -83,5 +85,17 @@ class BuildingFloor extends ActiveRecord
     public function getOffices()
     {
         return $this->hasMany(Office::class, ['fk_building_floor' => 'id']);
+    }
+    
+    public function getAllBuildings()
+    {
+        $buildings = ArrayHelper::map(Building::find()->all(), 'id', 'name');
+        return ArrayHelper::merge(['' => ''], $buildings);
+    }
+    
+    public static function allBuildingFloors($building_id){
+        $building = Building::findOne($building_id);
+        $floors = ArrayHelper::map($building->buildingFloors, 'id', 'name');
+        return $building->buildingFloors;
     }
 }

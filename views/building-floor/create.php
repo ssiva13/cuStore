@@ -11,7 +11,7 @@ $this->params['view-actions'] = [];
 <div class="building-floor-create">
     
     <?= $this->render('_form', [
-    'model' => $model,
+        'model' => $model,
     ]) ?>
 
 </div>

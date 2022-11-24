@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\models\Building;
 use app\models\BuildingFloor;
+use Yii;
 use yii\data\ActiveDataProvider;
-use app\controllers\BaseController;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * BuildingFloorController implements the CRUD actions for BuildingFloor model.
@@ -54,8 +56,14 @@ class BuildingFloorController extends BaseController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $model,
+            ]);
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
     
@@ -70,11 +78,17 @@ class BuildingFloorController extends BaseController
         $model = new BuildingFloor();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Yii::$app->request->referrer);
         }
-        
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+//                'buildings' => $buildings,
+            ]);
+        }
         return $this->render('create', [
             'model' => $model,
+//            'buildings' => $buildings,
         ]);
     }
     
@@ -91,9 +105,14 @@ class BuildingFloorController extends BaseController
         $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Yii::$app->request->referrer);
         }
         
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+        }
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -110,7 +129,7 @@ class BuildingFloorController extends BaseController
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
     
     /**
@@ -129,5 +148,13 @@ class BuildingFloorController extends BaseController
         }
         
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    public function actionGetFloors($building_id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+            'floors' => BuildingFloor::allBuildingFloors($building_id),
+        ];
     }
 }
