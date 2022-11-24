@@ -2,8 +2,7 @@
 
 namespace app\models;
 
-use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
-use Yii;
+use app\traits\{SoftDeleteTrait, TimeStampsTrait, ValidationTrait};
 use yii\db\ActiveRecord;
 
 /**
@@ -20,6 +19,7 @@ use yii\db\ActiveRecord;
 class Department extends ActiveRecord
 {
     use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
+    
     /**
      * {@inheritdoc}
      */
@@ -27,7 +27,7 @@ class Department extends ActiveRecord
     {
         return '{{%departments}}';
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -35,14 +35,13 @@ class Department extends ActiveRecord
     {
         return [
             [['name', 'slug'], 'required'],
-            [['name'], 'integer'],
             [['date_created', 'date_modified', 'deleted_at'], 'safe'],
-            [['slug'], 'string', 'max' => 30],
+            [['slug', 'name'], 'string', 'max' => 30],
             [['description'], 'string', 'max' => 150],
             [['slug'], 'unique'],
         ];
     }
-
+    
     /**
      * {@inheritdoc}
      */

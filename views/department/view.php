@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -15,16 +14,15 @@ $this->params['view-actions'] = [];
 
     <div class="box-body table-responsive no-padding">
         <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-                        'id',
+            'model' => $model,
+            'attributes' => [
                 'name',
                 'slug',
                 'description',
                 'date_created',
                 'date_modified',
                 'deleted_at',
-        ],
+            ],
         ]) ?>
     </div>
 </div>

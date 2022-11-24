@@ -14,7 +14,7 @@ class m221019_231010_create_departments_table extends Migration
     {
         $this->createTable('{{%departments}}', [
             'id' => $this->primaryKey()->unsigned()->comment('ID'),
-            'name' => $this->integer(50)->notNull()->comment('Department Name'),
+            'name' => $this->string(50)->notNull()->comment('Department Name'),
             'slug' => $this->string(30)->notNull(),
             'description' => $this->string(150)->null(),
             'date_created' => $this->timestamp()->notNull()->comment('Date Created'),
