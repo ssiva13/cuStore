@@ -14,8 +14,10 @@ class ActionColumn extends BaseActionColumn
 {
     public $header = 'Actions';
     
-    public $additionalOptions = [
+    public $additionalOptions = [];
     
+    public $contentOptions = [
+        'style' => 'width: 10%',
     ];
     /**
      * Initializes the default button rendering callbacks.
@@ -49,7 +51,7 @@ class ActionColumn extends BaseActionColumn
                         $title = '<i class="fas fa-eye"></i>';
                         $additionalOptions = [
                             'value' => $url,
-                            'class' => 'btn btn-outline-info border-0 showModalButton',
+                            'class' => 'btn btn-sm btn-outline-info border-0 showModalButton',
                             'title' => "View",
                         ];
                         break;
@@ -58,7 +60,7 @@ class ActionColumn extends BaseActionColumn
                         $title = '<i class="fa fa-pencil-alt"></i>';
                         $additionalOptions = [
                             'value' => $url,
-                            'class' => 'btn btn-outline-warning border-0 showModalButton',
+                            'class' => 'btn btn-sm btn-outline-warning border-0 showModalButton',
                             'title' => "Edit",
                         ];
                         break;
@@ -67,7 +69,7 @@ class ActionColumn extends BaseActionColumn
                         $title = '<i class="fas fa-trash"></i>';
                         $additionalOptions = [
                             'value' => $url,
-                            'class' => 'btn btn-outline-danger btn-transition border-0',
+                            'class' => 'btn btn-sm btn-outline-danger btn-transition border-0',
                             'title' => "Delete",
                             'data' => [
                                 'confirm' => 'Are you sure you want to delete this item?',
