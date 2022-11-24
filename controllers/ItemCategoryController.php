@@ -105,7 +105,7 @@ class ItemCategoryController extends BaseController
         $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Yii::$app->request->referrer);
         }
 
         if(Yii::$app->request->isAjax){
@@ -129,7 +129,7 @@ class ItemCategoryController extends BaseController
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
     
     /**

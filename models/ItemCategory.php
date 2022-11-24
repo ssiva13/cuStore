@@ -2,8 +2,7 @@
 
 namespace app\models;
 
-use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
-use Yii;
+use app\traits\{SoftDeleteTrait, TimeStampsTrait, ValidationTrait};
 use yii\db\ActiveRecord;
 
 /**
@@ -21,6 +20,7 @@ use yii\db\ActiveRecord;
 class ItemCategory extends ActiveRecord
 {
     use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
+    
     /**
      * {@inheritdoc}
      */
@@ -28,7 +28,7 @@ class ItemCategory extends ActiveRecord
     {
         return '{{%item_categories}}';
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -42,7 +42,7 @@ class ItemCategory extends ActiveRecord
             [['slug'], 'unique'],
         ];
     }
-
+    
     /**
      * {@inheritdoc}
      */

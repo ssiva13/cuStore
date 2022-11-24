@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ItemCategory */
@@ -13,9 +13,9 @@ use yii\bootstrap5\ActiveForm;
         'id' => "item-category-form",
     ]); ?>
     <div class="box-body table-responsive">
-
+        
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
+        
         <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
 
     </div>

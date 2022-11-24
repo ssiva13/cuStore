@@ -20,7 +20,7 @@ $this->params['view-actions'] = [
             'title' => 'Create Category',
             'value' => Url::toRoute(['item-category/create']),
             'class' => 'btn-link dropdown-item showModalButton',
-        ])
+        ]),
     ],
 ];
 ?>
@@ -33,37 +33,8 @@ $this->params['view-actions'] = [
                 ['class' => 'yii\grid\SerialColumn'],
                 'name',
                 'slug',
-                [
-                    'class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['style' => 'width: 8.7%'],
-                    'buttons' => [
-                        'view' => function ($url, $model) {
-                            return Html::button('View', [
-                                'value' => $url, 'class' => 'm-2 btn-transition border-0 btn btn-info showModalButton',
-                                'title' => "View $model->name"
-                            ]);
-                        },
-                        'update' => function ($url, $model) {
-                            return Html::button('Edit', [
-                                'value' => $url, 'class' => 'm-2 btn-transition border-0 btn btn-warning showModalButton',
-                                'title' => "Edit $model->name"
-                            ]);
-                        },
-                        'delete' => function ($url, $model) {
-                            return Html::a('Delete', $url,
-                                [
-                                    'value' => $url, 'class' => 'm-2 btn-transition border-0 btn btn-danger',
-                                    'title' => "Delete $model->name",
-                                    'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
-                                        'method' => 'post',
-                                    ]
-                                ]
-                            );
-                        },
-                    ],
-                ],
-            ]
+                ['class' => '\app\widgets\ActionColumn'],
+            ],
         ]); ?>
     </div>
     <?php Pjax::end(); ?>
