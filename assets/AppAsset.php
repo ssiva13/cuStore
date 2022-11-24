@@ -30,5 +30,6 @@ class AppAsset extends AssetBundle
     public $depends = [
         'app\assets\AdminLteAsset',
         'app\assets\AdminLtePluginsAsset',
+        'app\assets\Select2Asset',
     ];
 }
