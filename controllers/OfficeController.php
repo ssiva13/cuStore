@@ -54,8 +54,14 @@ class OfficeController extends BaseController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $model,
+            ]);
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
     
@@ -68,13 +74,20 @@ class OfficeController extends BaseController
     public function actionCreate()
     {
         $model = new Office();
+        $buildingFloors = [];
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Yii::$app->request->referrer);
         }
-        
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'buildingFloors' => $buildingFloors,
+            ]);
+        }
         return $this->render('create', [
             'model' => $model,
+            'buildingFloors' => $buildingFloors,
         ]);
     }
     
@@ -89,13 +102,21 @@ class OfficeController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $buildingFloors = $model->fkBuilding->buildingFloors;
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Yii::$app->request->referrer);
         }
         
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('update', [
+                'model' => $model,
+                'buildingFloors' => $buildingFloors,
+            ]);
+        }
         return $this->render('update', [
             'model' => $model,
+            'buildingFloors' => $buildingFloors,
         ]);
     }
     
@@ -110,7 +131,7 @@ class OfficeController extends BaseController
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
     
     /**

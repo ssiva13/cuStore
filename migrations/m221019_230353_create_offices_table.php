@@ -14,7 +14,7 @@ class m221019_230353_create_offices_table extends Migration
     {
         $this->createTable('{{%offices}}', [
             'id' => $this->primaryKey()->unsigned(),
-            'office_name' => $this->integer(30)->notNull(),
+            'office_name' => $this->string(30)->notNull(),
             'office_code' => $this->string(30)->notNull(),
             'fk_building' => $this->integer()->unsigned()->notNull(),
             'fk_building_floor' => $this->integer()->unsigned()->notNull(),

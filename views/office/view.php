@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use app\models\Office;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -15,18 +15,30 @@ $this->params['view-actions'] = [];
 
     <div class="box-body table-responsive no-padding">
         <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-                        'id',
+            'model' => $model,
+            'attributes' => [
                 'office_name',
                 'office_code',
-                'fk_building',
-                'fk_building_floor',
+                [
+                    'attribute' => 'fk_building',
+                    'header' => '<i class="fa fa-building" aria-hidden="true"></i> Building',
+                    'format' => 'raw',
+                    'value' => function (Office $model) {
+                        return $model->fkBuilding->name;
+                    },
+                ],
+                [
+                    'attribute' => 'fk_building_floor',
+                    'format' => 'raw',
+                    'value' => function (Office $model) {
+                        return $model->fkBuildingFloor->floor_code;
+                    },
+                ],
                 'description',
                 'date_created',
                 'date_modified',
                 'deleted_at',
-        ],
+            ],
         ]) ?>
     </div>
 </div>

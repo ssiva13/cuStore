@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Office */
+/* @var $buildingFloors app\models\BuildingFloor */
 
 $this->title = 'Update Office: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Offices', 'url' => ['index']];
@@ -12,7 +13,8 @@ $this->params['view-actions'] = [];
 <div class="office-update">
     
     <?= $this->render('_form', [
-    'model' => $model,
+        'model' => $model,
+        'buildingFloors' => $buildingFloors,
     ]) ?>
 
 </div>
