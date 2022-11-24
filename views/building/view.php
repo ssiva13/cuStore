@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -15,19 +14,32 @@ $this->params['view-actions'] = [];
 
     <div class="box-body table-responsive no-padding">
         <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-                        'id',
+            'model' => $model,
+            'attributes' => [
                 'name',
                 'location',
                 'address',
-                'longitude',
-                'latitude',
+                [
+                    'attribute' => 'longitude',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        $long = (double)$model->longitude;
+                        return $long >= 0 ? "<span class='badge badge-pill badge-info'>$long &deg;N</span>" : "<span class='badge badge-pill badge-info'> $long &deg;S</span>";
+                    },
+                ],
+                [
+                    'attribute' => 'latitude',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        $lat = (double)$model->latitude;
+                        return $lat >= 0 ? "<span class='badge badge-pill badge-info'>$lat &deg;E</span>" : "<span class='badge badge-pill badge-info'> $lat &deg;W</span>";
+                    },
+                ],
                 'description',
                 'date_created',
                 'date_modified',
                 'deleted_at',
-        ],
+            ],
         ]) ?>
     </div>
 </div>

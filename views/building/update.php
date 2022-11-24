@@ -12,7 +12,7 @@ $this->params['view-actions'] = [];
 <div class="building-update">
     
     <?= $this->render('_form', [
-    'model' => $model,
+        'model' => $model,
     ]) ?>
 
 </div>

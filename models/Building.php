@@ -2,8 +2,7 @@
 
 namespace app\models;
 
-use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
-use Yii;
+use app\traits\{SoftDeleteTrait, TimeStampsTrait, ValidationTrait};
 use yii\db\ActiveRecord;
 
 /**
@@ -26,6 +25,7 @@ use yii\db\ActiveRecord;
 class Building extends ActiveRecord
 {
     use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
+    
     /**
      * {@inheritdoc}
      */
@@ -33,7 +33,7 @@ class Building extends ActiveRecord
     {
         return '{{%buildings}}';
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -47,7 +47,7 @@ class Building extends ActiveRecord
             [['description'], 'string', 'max' => 150],
         ];
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -66,7 +66,7 @@ class Building extends ActiveRecord
             'deleted_at' => 'Date Deleted',
         ];
     }
-
+    
     /**
      * Gets query for [[BuildingFloors]].
      *
@@ -76,7 +76,7 @@ class Building extends ActiveRecord
     {
         return $this->hasMany(BuildingFloor::class, ['fk_building' => 'id']);
     }
-
+    
     /**
      * Gets query for [[Offices]].
      *
