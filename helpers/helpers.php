@@ -27,3 +27,9 @@ if (!function_exists('id2human')) {
         return Inflector::camel2words($camel);
     }
 }
+if (!function_exists('ordinalize')) {
+    function ordinalize($number): string
+    {
+        return Inflector::ordinalize($number);
+    }
+}

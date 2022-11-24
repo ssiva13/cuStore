@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
+use app\traits\{SoftDeleteTrait, TimeStampsTrait, ValidationTrait};
 use Carbon\Carbon;
 use Exception;
 use Yii;
@@ -28,7 +28,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
     
-    const EVENT_NEW_LOGIN='new_login';
+    const EVENT_NEW_LOGIN = 'new_login';
     
     public function init()
     {
@@ -82,7 +82,8 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
     
-    public static function findIdentity($id) {
+    public static function findIdentity($id)
+    {
         return static::findOne($id);
     }
     
@@ -120,6 +121,7 @@ class User extends ActiveRecord implements IdentityInterface
     
     /**
      * Finds user by username
+     *
      * @param string $username
      *
      * @return static|null
@@ -152,6 +154,7 @@ class User extends ActiveRecord implements IdentityInterface
         $hash = $this->password;
         return Yii::$app->getSecurity()->validatePassword($password, $hash);
     }
+    
     /**
      * @throws \yii\base\Exception
      * @throws \yii\db\Exception
@@ -165,14 +168,15 @@ class User extends ActiveRecord implements IdentityInterface
             $this->save();
             $transaction->commit();
             return true;
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             $transaction->rollBack();
             Yii::warning($exception->getMessage());
             throw $exception;
         }
     }
     
-    protected function updateLastLogin(){
+    protected function updateLastLogin()
+    {
         $this->last_login_at = Carbon::now();
         $this->save();
     }
