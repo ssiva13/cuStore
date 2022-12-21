@@ -1,8 +1,6 @@
 <?php
 
 use app\widgets\DataTable;
-use yii\bootstrap5\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -11,6 +9,7 @@ use yii\widgets\Pjax;
 
 $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['view-actions'] = [];
 ?>
 <div class="user-index box box-primary">
     <?php Pjax::begin(); ?>
@@ -24,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'username',
                 'email:email',
                 [
-                    'attribute' => 'active',
+                    'attribute' => 'active_string',
+                    'header' => 'Status',
                     'format' => 'raw'
                 ],
                 'last_login_at',

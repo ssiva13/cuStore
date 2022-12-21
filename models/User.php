@@ -2,8 +2,8 @@
 
 namespace app\models;
 
-use app\traits\SoftDeletes;
-use app\traits\TimeStamps;
+use app\traits\{SoftDeleteTrait, TimeStampsTrait, ValidationTrait};
+use Carbon\Carbon;
 use Exception;
 use Yii;
 use yii\db\ActiveRecord;
@@ -21,11 +21,21 @@ use yii\web\IdentityInterface;
  * @property int $active Status
  * @property string|null $last_login_at Last Login
  * @property string $date_created Date Created
+ * @property-read mixed $authKey
  * @property string|null $date_modified Date Modified
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    use SoftDeletes, TimeStamps;
+    use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
+    
+    const EVENT_NEW_LOGIN = 'new_login';
+    
+    public function init()
+    {
+        $this->on(self::EVENT_NEW_LOGIN, [$this, 'updateLastLogin']);
+        parent::init();
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -72,7 +82,8 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
     
-    public static function findIdentity($id) {
+    public static function findIdentity($id)
+    {
         return static::findOne($id);
     }
     
@@ -110,6 +121,7 @@ class User extends ActiveRecord implements IdentityInterface
     
     /**
      * Finds user by username
+     *
      * @param string $username
      *
      * @return static|null
@@ -142,6 +154,7 @@ class User extends ActiveRecord implements IdentityInterface
         $hash = $this->password;
         return Yii::$app->getSecurity()->validatePassword($password, $hash);
     }
+    
     /**
      * @throws \yii\base\Exception
      * @throws \yii\db\Exception
@@ -155,11 +168,17 @@ class User extends ActiveRecord implements IdentityInterface
             $this->save();
             $transaction->commit();
             return true;
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             $transaction->rollBack();
             Yii::warning($exception->getMessage());
             throw $exception;
         }
+    }
+    
+    protected function updateLastLogin()
+    {
+        $this->last_login_at = Carbon::now();
+        $this->save();
     }
     
 }

@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['view-actions'] = [];
 ?>
 <div class="user-view box box-primary">
 

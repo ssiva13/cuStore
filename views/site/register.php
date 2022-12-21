@@ -3,6 +3,7 @@
 use app\models\form\RegisterForm;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\Url;
 use yii\web\View;
 
 /** @var View $this */
@@ -74,6 +75,11 @@ $this->title = 'Sign Up';
                 <i class="fab fa-google mr-2"></i> Sign Up Using Google
             </a>
         </div>
+        <p class="mb-1 float-center">
+            Already have an account?
+            <?= Html::a('Login', Url::toRoute(['site/login']), ['class' => 'text-center']) ?>
+        </p>
+
 
     </div>
 </div>

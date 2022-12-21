@@ -9,7 +9,7 @@
 namespace app\traits;
 
 
-trait SoftDeletes
+trait SoftDeleteTrait
 {
     
 }

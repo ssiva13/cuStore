@@ -20,7 +20,9 @@
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "almasaeed2010/adminlte": "^3.2",
         "yiithings/yii2-dotenv": "^1.1",
-        "nesbot/carbon": "^2.62"
+        "nesbot/carbon": "^2.62",
+        "select2/select2": "^4.0",
+        "apalfrey/select2-bootstrap-5-theme": "^1.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
