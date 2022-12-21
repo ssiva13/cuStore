@@ -82,3 +82,12 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.auth-img{
+    height: 1.15rem;
+    width: 1.15rem;
+    position: relative;
+    z-index: 100;
+    vertical-align: middle;
+    horiz-align: center;
+    border-style: none;
+}

@@ -23,12 +23,15 @@ use yii\web\IdentityInterface;
  * @property string $date_created Date Created
  * @property-read mixed $authKey
  * @property string|null $date_modified Date Modified
+ * @property string $password_reset_token
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
     
     const EVENT_NEW_LOGIN = 'new_login';
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
     
     public function init()
     {
@@ -180,5 +183,48 @@ class User extends ActiveRecord implements IdentityInterface
         $this->last_login_at = Carbon::now();
         $this->save();
     }
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
     
+    /**
+     * Generates new password reset token
+     */
+    public function generatePasswordResetToken()
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+    /**
+     * Finds user by verification email token
+     *
+     * @param string $token verify email token
+     * @return static|null
+     */
+    public static function findByVerificationToken($token) {
+        return static::findOne([
+            'verification_token' => $token,
+            'status' => self::STATUS_INACTIVE
+        ]);
+    }
+    
+    /**
+     * Finds out if password reset token is valid
+     *
+     * @param string $token password reset token
+     * @return bool
+     */
+    public static function isPasswordResetTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+        
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+        return $timestamp + $expire >= time();
+    }
 }

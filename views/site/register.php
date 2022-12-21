@@ -71,9 +71,11 @@ $this->title = 'Sign Up';
         <?php ActiveForm::end(); ?>
         <div class="social-auth-links text-center mb-3">
             <p>- OR -</p>
-            <a href="javascript:void(0)" class="btn btn-block btn-outline-primary">
-                <i class="fab fa-google mr-2"></i> Sign Up Using Google
-            </a>
+            <?= Html::a(
+                Html::img(Yii::getAlias('@web'). '/images/google.png', ['class' => 'auth-img ']). ' Sign Up Using Google',
+                Url::toRoute(['site/auth', 'authclient' => 'google']),
+                ['class' => 'btn btn-block btn-outline-primary']
+            )?>
         </div>
         <p class="mb-1 float-center">
             Already have an account?
