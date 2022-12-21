@@ -24,7 +24,7 @@ use yii\bootstrap5\ActiveForm;
         
         <?= $form->field($model, 'latitude')->textInput(['maxlength' => true]) ?>
         
-        <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
         
     </div>
     <div class="box-footer">

@@ -60,7 +60,7 @@ $this->registerJs("
             'id' => 'office-building-floor'
         ]) ?>
 
-        <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
     </div>
     <div class="box-footer">

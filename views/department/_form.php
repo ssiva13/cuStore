@@ -18,7 +18,7 @@ use yii\helpers\Html;
         
         <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
         
-        <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
     </div>
     <div class="box-footer">

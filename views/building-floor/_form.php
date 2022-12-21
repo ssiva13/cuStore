@@ -27,7 +27,7 @@ $floors = array_combine(range(-10, 100), range(-10, 100));
             // $model->allBuildingFloors
         ]) ?>
         <?= $form->field($model, 'floor_code')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
     </div>
     <div class="box-footer">
