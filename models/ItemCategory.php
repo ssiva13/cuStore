@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\traits\{SoftDeleteTrait, TimeStampsTrait, ValidationTrait};
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -57,14 +58,14 @@ class ItemCategory extends ActiveRecord
             'deleted_at' => 'Date Deleted',
         ];
     }
-
-//    /**
-//     * Gets query for [[Items]].
-//     *
-//     * @return \yii\db\ActiveQuery
-//     */
-//    public function getItems()
-//    {
-//        return $this->hasMany(Item::class, ['fk_item_category' => 'id']);
-//    }
+    
+    /**
+     * Gets query for [[Items]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItems(): ActiveQuery
+    {
+        return $this->hasMany(Item::class, ['fk_item_category' => 'id']);
+    }
 }

@@ -19,6 +19,7 @@ use yii\web\View;
                     'items' => [
                         ['label' => 'Main Menu', 'header' => true],
                         ['label' => 'Users', 'iconType' => 'fas', 'icon' => 'users', 'url' => Url::toRoute(['user/index']), 'visible' => !Yii::$app->user->isGuest],
+                        ['label' => 'Items', 'iconType' => 'fas', 'icon' => 'sitemap', 'url' => Url::toRoute(['item/index']), 'visible' => !Yii::$app->user->isGuest],
                         [
                             'label' => 'Configuration',
                             'icon' => 'share',
