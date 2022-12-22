@@ -10,6 +10,7 @@ $config = [
     'name' => env('APP_NAME'),
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'homeUrl'=>'site/login',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',

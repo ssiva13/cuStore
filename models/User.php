@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Exception;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
 /**
@@ -180,6 +181,7 @@ class User extends ActiveRecord implements IdentityInterface
     
     protected function updateLastLogin()
     {
+        Yii::$app->setHomeUrl(Url::toRoute(['/item/index']));
         $this->last_login_at = Carbon::now();
         $this->save();
     }
