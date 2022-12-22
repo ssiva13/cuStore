@@ -56,12 +56,14 @@ $this->title = 'Sign In';
 
         <div class="social-auth-links text-center mb-3">
             <p>- OR -</p>
-            <a href="javascript:void(0)" class="btn btn-block btn-outline-primary">
-                <i class="fab fa-google mr-2"></i> Sign in Using Google
-            </a>
+            <?= Html::a(
+                Html::img(Yii::getAlias('@web'). '/images/google.png', ['class' => 'auth-img ']). ' Sign In Using Google',
+                Url::toRoute(['site/auth', 'authclient' => 'google']),
+                ['class' => 'btn btn-block btn-outline-primary']
+            )?>
         </div>
         <!-- /.social-auth-links -->
-        <p class="mb-1 float-left">
+        <p class="mb-1 float-left img-rounded">
             <a href="javascript:void(0)">Forgot Password</a>
         </p>
         <p class="mb-1 float-right">

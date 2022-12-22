@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\AuthHandler;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -45,6 +46,10 @@ class SiteController extends Controller
     public function actions()
     {
         return [
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccess'],
+            ],
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
@@ -152,6 +157,21 @@ class SiteController extends Controller
         return $this->render('register', [
             'model' => $model,
         ]);
+    }
+    
+    /**
+     * @param $client
+     *
+     * @return \yii\web\Response
+     * @throws \yii\base\Exception
+     */
+    public function onAuthSuccess($client): Response
+    {
+        $auth = (new AuthHandler($client))->handle();
+        if($auth){
+            return $this->goHome();
+        }
+        return $this->redirect(['/site/login']);
     }
     
 }

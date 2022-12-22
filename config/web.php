@@ -10,11 +10,29 @@ $config = [
     'name' => env('APP_NAME'),
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'homeUrl'=>'site/login',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'app\components\GoogleClient',
+                    'httpClient' => [
+                        'transport' => 'yii\httpclient\CurlTransport',
+                    ],
+                    'clientId' => env('GOOGLE_CLIENT_ID'),
+                    'clientSecret' => env('GOOGLE_CLIENT_SECRET'),
+                    'authUrl' => env('GOOGLE_AUTH_URI'),
+                    'tokenUrl' => env('GOOGLE_TOKEN_URI'),
+                    'apiBaseUrl' => env('GOOGLE_BASE_URL'),
+                    'scope' => 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+                ]
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => env('APP_KEY'),
@@ -51,6 +69,11 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error'],
+                    'logFile' => '@runtime/logs/error.log'
                 ],
             ],
         ],

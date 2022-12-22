@@ -31,7 +31,9 @@ AppAsset::register($this);
             <?= Html::img(Yii::getAlias('@web').'/images/cuStore.png') ?>
         </div>
 
-        <?= CustomAlert::widget(); ?>
+        <div class="login-card-body ml-2 mr-2">
+            <?= CustomAlert::widget(); ?>
+        </div>
 
         <?= $content ?>
     </div>
