@@ -33,21 +33,23 @@ $flashes = Yii::$app->session->getAllFlashes();
                         ]
                     ]); ?>
                 </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right nav-item dropdown-center dropleft">
-                        <button class="btn btn-default" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span>Page Actions</span>
-                            <i class="fa fa-tasks"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="right: 0 !important;">
-                            <span class="dropdown-header">Page Actions</span>
-                            <?php foreach ($actions as $action): ?>
-                                <div class="dropdown-divider"></div>
-                                <?= $action['content'] ?>
-                            <?php endforeach; ?>
+                <?php if (count($actions)): ?>
+                    <div class="col-sm-6">
+                        <div class="float-sm-right nav-item dropdown-center dropleft">
+                            <button class="btn btn-default" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span>Page Actions</span>
+                                <i class="fa fa-tasks"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="right: 0 !important;">
+                                <span class="dropdown-header">Page Actions</span>
+                                <?php foreach ($actions as $action): ?>
+                                    <div class="dropdown-divider"></div>
+                                    <?= $action['content'] ?>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

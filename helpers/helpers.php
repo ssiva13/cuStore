@@ -39,3 +39,9 @@ if (!function_exists('logger')) {
         Yii::info($str);
     }
 }
+if (!function_exists('pluralize')) {
+    function pluralize($string): string
+    {
+        return Inflector::pluralize($string);
+    }
+}

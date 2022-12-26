@@ -18,38 +18,15 @@ use yii\web\View;
                     'options' => ['class' => 'nav nav-pills nav-sidebar flex-column', 'data-widget' => 'treeview'],
                     'items' => [
                         ['label' => 'Main Menu', 'header' => true],
-                        ['label' => 'Users', 'iconType' => 'fas', 'icon' => 'users', 'url' => Url::toRoute(['user/index']), 'visible' => !Yii::$app->user->isGuest],
-                        ['label' => 'Items', 'iconType' => 'fas', 'icon' => 'sitemap', 'url' => Url::toRoute(['item/index']), 'visible' => !Yii::$app->user->isGuest],
+                        ['label' => 'Items', 'icon' => 'sitemap', 'url' => ['/item'], 'visible' => !Yii::$app->user->isGuest],
                         [
                             'label' => 'Configuration',
-                            'icon' => 'share',
+                            'icon' => 'cog',
                             'url' => 'javascript:void(0)',
                             'items' => [
-                                ['label' => 'Gii', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/gii'], 'visible' => YII_ENV_DEV],
-                                [
-                                    'label' => 'Configs',
-                                    'iconType' => 'far',
-                                    'icon' => 'circle',
-                                    'url' => 'javascript:void(0)',
-                                    'items' => [
-                                        ['label' => 'Item Categories', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/item-category'], 'visible' =>  !Yii::$app->user->isGuest],
-                                        ['label' => 'Offices', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/office'], 'visible' =>  !Yii::$app->user->isGuest],
-                                        ['label' => 'Buildings', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/building'], 'visible' =>  !Yii::$app->user->isGuest],
-                                        ['label' => 'Building Floors', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/building-floor'], 'visible' =>  !Yii::$app->user->isGuest],
-                                        ['label' => 'Departments', 'iconType' => 'far', 'icon' => 'file-code', 'url' => ['/department'], 'visible' =>  !Yii::$app->user->isGuest],
-                                        [
-                                            'label' => 'About '.Yii::$app->name,
-                                            'iconType' => 'far',
-                                            'icon' => 'dot-circle',
-                                            'url' => 'javascript:void(0)',
-                                            'items' => [
-                                                ['label' => 'Contact', 'icon' => 'dot-circle', 'url' => ['site/contact'], 'visible' => YII_ENV_DEV],
-                                            ],
-                                            'visible' => YII_ENV_DEV
-                                        ],
-                                    ],
-                                    'visible' => YII_ENV_DEV
-                                ],
+                                ['label' => 'Staff', 'icon' => 'id-card', 'url' => ['/staff'], 'visible' => !Yii::$app->user->isGuest],
+                                ['label' => 'Users', 'icon' => 'users', 'url' => ['/user'], 'visible' => !Yii::$app->user->isGuest],
+                                ['label' => 'Lookup Values', 'icon' => 'map-signs ', 'url' => ['/dashboard/lookups'], 'visible' =>  !Yii::$app->user->isGuest],
                             ],
                             'visible' =>  !Yii::$app->user->isGuest
                         ],
