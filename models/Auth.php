@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use app\traits\{SoftDeleteTrait, TimeStampsTrait};
 
 /**
  * This is the model class for table "{{%auth}}".
@@ -18,6 +19,7 @@ use yii\db\ActiveRecord;
  */
 class Auth extends ActiveRecord
 {
+    use SoftDeleteTrait, TimeStampsTrait;
     /**
      * {@inheritdoc}
      */
