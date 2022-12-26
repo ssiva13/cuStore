@@ -11,6 +11,11 @@ function triggerModal(e)
 {
     let modal = "#main-modal";
     let content = $(`${modal} .modal-content`);
+    let dialog = $(`${modal} .modal-dialog`);
+    if(e.hasClass('full')) {
+        dialog.addClass('modal-fullscreen').addClass('modal-dialog-full');
+        content.addClass('modal-content-full');
+    }
     if ($(modal).hasClass('in')) {
         $(modal).find('#mainModalContent').load(e.attr('value'), function() {
             $(`.select2-dropdown-single`).select2({
