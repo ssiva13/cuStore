@@ -2,12 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\Building;
 use app\models\BuildingFloor;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -41,7 +39,11 @@ class BuildingFloorController extends BaseController
         $dataProvider = new ActiveDataProvider([
             'query' => BuildingFloor::find(),
         ]);
-        
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+        }
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);

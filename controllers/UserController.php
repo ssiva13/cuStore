@@ -2,12 +2,11 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\User;
 use app\search\UserSearch;
-use app\controllers\BaseController;
-use yii\web\NotFoundHttpException;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * UserController implements the CRUD actions for User model.

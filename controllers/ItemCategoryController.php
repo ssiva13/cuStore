@@ -2,12 +2,11 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\ItemCategory;
+use Yii;
 use yii\data\ActiveDataProvider;
-use app\controllers\BaseController;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * ItemCategoryController implements the CRUD actions for ItemCategory model.
@@ -44,7 +43,7 @@ class ItemCategoryController extends BaseController
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    
     /**
      * Displays a single ItemCategory model.
      *
@@ -55,7 +54,7 @@ class ItemCategoryController extends BaseController
      */
     public function actionView($id)
     {
-        if(Yii::$app->request->isAjax){
+        if (Yii::$app->request->isAjax) {
             return $this->renderAjax('view', [
                 'model' => $this->findModel($id),
             ]);
@@ -75,14 +74,14 @@ class ItemCategoryController extends BaseController
     {
         $model = new ItemCategory();
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()) {
+            if ($model->save()) {
                 Yii::$app->session->setFlash('success', ['message' => id2human(Yii::$app->controller->id) . " Saved Successfully!"]);
-            }else {
+            } else {
                 Yii::$app->session->setFlash('error', ['message' => id2human(Yii::$app->controller->id) . " Not Saved!"]);
             }
             return $this->redirect(Yii::$app->request->referrer);
         }
-        if(Yii::$app->request->isAjax){
+        if (Yii::$app->request->isAjax) {
             return $this->renderAjax('create', [
                 'model' => $model,
             ]);
@@ -107,8 +106,8 @@ class ItemCategoryController extends BaseController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(Yii::$app->request->referrer);
         }
-
-        if(Yii::$app->request->isAjax){
+        
+        if (Yii::$app->request->isAjax) {
             return $this->renderAjax('update', [
                 'model' => $model,
             ]);

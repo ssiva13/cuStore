@@ -2,12 +2,11 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\Office;
+use Yii;
 use yii\data\ActiveDataProvider;
-use app\controllers\BaseController;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * OfficeController implements the CRUD actions for Office model.
@@ -39,7 +38,11 @@ class OfficeController extends BaseController
         $dataProvider = new ActiveDataProvider([
             'query' => Office::find(),
         ]);
-        
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+        }
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);

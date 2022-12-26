@@ -3,21 +3,20 @@
 namespace app\controllers;
 
 use app\components\AuthHandler;
-use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
+use app\models\ContactForm;
 use app\models\form\LoginForm;
 use app\models\form\RegisterForm;
-use app\models\ContactForm;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\Response;
 
-class SiteController extends Controller
+class SiteController extends BaseController
 {
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
@@ -39,11 +38,11 @@ class SiteController extends Controller
             ],
         ];
     }
-
+    
     /**
      * {@inheritdoc}
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'auth' => [
@@ -59,7 +58,7 @@ class SiteController extends Controller
             ],
         ];
     }
-
+    
     /**
      * Displays homepage.
      *
@@ -69,7 +68,7 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-
+    
     /**
      * Login action.
      *
@@ -81,18 +80,18 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-
+        
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
     }
-
+    
     /**
      * Logout action.
      *
@@ -101,10 +100,10 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-    
+        
         return $this->redirect('login');
     }
-
+    
     /**
      * Displays contact page.
      *
@@ -115,14 +114,14 @@ class SiteController extends Controller
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
-
+            
             return $this->refresh();
         }
         return $this->render('contact', [
             'model' => $model,
         ]);
     }
-
+    
     /**
      * Displays about page.
      *
@@ -168,7 +167,7 @@ class SiteController extends Controller
     public function onAuthSuccess($client): Response
     {
         $auth = (new AuthHandler($client))->handle();
-        if($auth){
+        if ($auth) {
             return $this->goHome();
         }
         return $this->redirect(['/site/login']);
