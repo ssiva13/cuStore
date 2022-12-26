@@ -33,3 +33,9 @@ if (!function_exists('ordinalize')) {
         return Inflector::ordinalize($number);
     }
 }
+if (!function_exists('logger')) {
+    function logger($str)
+    {
+        Yii::info($str);
+    }
+}
