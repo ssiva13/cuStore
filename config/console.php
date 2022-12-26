@@ -37,6 +37,15 @@ $config = [
             'class' => 'yii\console\controllers\MigrateController',
             'migrationPath' => '@app/database/migrations',
         ],
+        'seeder' => [
+            'class' => 'antonyz89\seeder\SeederController',
+            'seederPath' => '@app/database/seeders',
+            'tablesPath' => '@app/database/seeders/tables',
+            'modelNamespace' => 'app\models',
+            'seederNamespace' => 'app\database\seeders',
+            'tableSeederNamespace' => 'app\database\seeders\tables',
+            
+        ],
     ],
 ];
 
