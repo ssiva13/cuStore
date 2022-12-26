@@ -36,6 +36,7 @@ class Auth extends ActiveRecord
         return [
             [['fk_user', 'source', 'source_id'], 'required'],
             [['fk_user'], 'integer'],
+            [['date_created', 'date_modified', 'deleted_at'], 'safe'],
             [['source', 'source_id'], 'string', 'max' => 255],
             [['fk_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['fk_user' => 'id']],
         ];
@@ -51,6 +52,9 @@ class Auth extends ActiveRecord
             'fk_user' => 'Fk User',
             'source' => 'Source',
             'source_id' => 'Source ID',
+            'date_created' => 'Date Created',
+            'date_modified' => 'Date Modified',
+            'deleted_at' => 'Date Deleted',
         ];
     }
     
