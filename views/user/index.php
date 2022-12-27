@@ -27,9 +27,15 @@ $this->params['view-actions'] = [];
                     'header' => 'Status',
                     'format' => 'raw'
                 ],
-                'last_login_at',
-                'date_created',
-                ['class' => 'yii\grid\ActionColumn'],
+                [
+                    'attribute' => 'last_login_at_string',
+                    'header' => 'Last Login',
+                ],
+                [
+                    'attribute' => 'date_created_string',
+                    'header' => 'Date Registered',
+                ],
+                ['class' => '\app\widgets\ActionColumn'],
             ],
         ]); ?>
     </div>
