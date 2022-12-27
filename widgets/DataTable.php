@@ -8,6 +8,7 @@
 
 namespace app\widgets;
 
+use Yii;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -27,7 +28,7 @@ class DataTable extends GridView
      * @var array the HTML attributes for the datatables table element.
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
-    public $clientOptions = [];
+    public array $clientOptions = [];
     
     /**
      * @var array the HTML attributes for the datatables table element.
@@ -77,6 +78,8 @@ class DataTable extends GridView
         if (!isset($this->tableOptions['id'])) {
             $this->tableOptions['id'] = 'datatables_'.$this->getId();
         }
+        $this->tableOptions['data-source-url'] = Yii::$app->request->absoluteUrl;
+        $this->tableOptions['data-source-title'] = id2human(Yii::$app->controller->id);
     }
     /**
      * Returns the options for the datatables view JS widget.

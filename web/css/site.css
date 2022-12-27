@@ -105,3 +105,9 @@ a.desc:after {
     margin:0;
     padding: 0;
 }
+.dataTables_filter{
+    text-align: left !important;
+}
+div.actions-toolbar {
+    float: right;
+}
