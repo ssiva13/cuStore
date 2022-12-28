@@ -76,7 +76,14 @@ class UserController extends BaseController
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
-    
+
+    public function actionProfile(int $id): string
+    {
+        return $this->render('profile', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

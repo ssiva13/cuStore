@@ -78,12 +78,12 @@ class SiteController extends BaseController
     {
         $this->layout = 'main-login';
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['/user/profile', 'id' => Yii::$app->user->identity->id]);
         }
         
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['/user/profile', 'id' => Yii::$app->user->identity->id]);
         }
         
         $model->password = '';
@@ -168,7 +168,7 @@ class SiteController extends BaseController
     {
         $auth = (new AuthHandler($client))->handle();
         if ($auth) {
-            return $this->goHome();
+            return $this->redirect(['/user/profile', 'id' => Yii::$app->user->identity->id]);
         }
         return $this->redirect(['/site/login']);
     }

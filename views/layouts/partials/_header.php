@@ -4,6 +4,7 @@
 
 /** @var string $directoryAsset */
 
+use Carbon\Carbon;
 use yii\bootstrap5\Html;
 
 
@@ -37,73 +38,6 @@ use yii\bootstrap5\Html;
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown-center dropleft">
-            <a class="nav-link" data-bs-toggle="dropdown" href="javascript:void(0)" aria-expanded="false">
-                <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right top-100" style="right: 0 !important;">
-                <a href="javascript:void(0)" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                        <?= Html::img(Yii::getAlias('@web') . '/images/' . env('APP_NAME') . '.png', [
-                            'alt' => 'User Avatar',
-                            'class' => 'img-size-50 img-circle mr-3'
-                        ]); ?>
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Brad Diesel
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">Call me whenever you can...</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="javascript:void(0)" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                        <?= Html::img($directoryAsset . '/img/user8-128x128.jpg', [
-                            'alt' => 'User Avatar',
-                            'class' => 'img-size-50 img-circle mr-3'
-                        ]); ?>
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                John Pierce
-                                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">I got your message bro</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="javascript:void(0)" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                        <?= Html::img($directoryAsset . '/img/user3-128x128.jpg', [
-                            'alt' => 'User Avatar',
-                            'class' => 'img-size-50 img-circle mr-3'
-                        ]); ?>
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Nora Silvester
-                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">The subject goes here</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="javascript:void(0)" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-        </li>
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown-center dropleft">
             <a class="nav-link" data-bs-toggle="dropdown" href="javascript:void(0)">
@@ -131,42 +65,39 @@ use yii\bootstrap5\Html;
                 <a href="javascript:void(0)" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
+
+
+        <!-- user avatar section-->
         <li class="nav-item dropdown-center dropleft user-menu">
             <a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <?= Html::img(Yii::getAlias('@web').'/images/default-150x150.png', [ 'class' => "user-image img-circle elevation-2", 'alt' => (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->username : '']) ?>
-                <span class="d-none d-md-inline"><?= Html::encode((!Yii::$app->user->isGuest) ? Yii::$app->user->identity->username : '') ?></span>
+                <span class="d-none d-md-inline"><?= Html::encode((Yii::$app->user->identity->staff) ? Yii::$app->user->identity->staff->full_name : '') ?></span>
+
             </a>
             <ul class="dropdown-menu dropdown-menu-lg top-100" style="right: 0 !important;">
                 <!-- User image -->
-                <li class="user-header bg-primary">
+                <li class="user-header bg-gradient-navy">
                     <?= Html::img(Yii::getAlias('@web').'/images/default-150x150.png', [ 'class' => "img-circle elevation-2", 'alt' => (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->username : '']) ?>
-                    <?= Html::tag('p',  (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->username : '' . ' <small>Member since Nov. 2012</small>') ?>
-                </li>
-                <!-- Menu Body -->
-                <li class="user-body">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <a href="javascript:void(0)">Followers</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="javascript:void(0)">Sales</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="javascript:void(0)">Friends</a>
-                        </div>
-                    </div>
-                    <!-- /.row -->
+                    <?= Html::tag('p', (Yii::$app->user->identity->staff) ? Yii::$app->user->identity->staff->full_name : '' ) ?>
+                    <?= Html::tag('span',  ' <small>Member since '. Carbon::parse(Yii::$app->user->identity->date_created)->year .'</small>') ?>
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="javascript:void(0)" class="btn btn-default btn-flat">Profile</a>
+                    <?= Html::a(
+                        'Profile', ['/user/profile', 'id' => Yii::$app->user->identity->id],
+                        [
+                            'class' => 'btn bg-gradient-navy btn-flat'
+                        ]
+                    ) ?>
                     <?= Html::a(
                         'Sign out',
                         ['/site/logout'],
-                        ['data-method' => 'post', 'class' => 'btn btn-default btn-flat float-right']
+                        ['data-method' => 'post', 'class' => 'btn bg-danger btn-flat float-right']
                     ) ?>
                 </li>
             </ul>
         </li>
+        <!-- end of user avatar section-->
+
     </ul>
 </nav>
