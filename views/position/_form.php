@@ -1,6 +1,7 @@
 <?php
 
 use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Alert;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -13,7 +14,14 @@ use yii\helpers\Html;
         'id' => "position-form",
     ]); ?>
     <div class="box-body table-responsive p-2">
-        
+
+        <?= $this->render('//layouts/partials/_form_errors', [
+            'model' => $model,
+            'relAttributes' => [
+                'fk_department' => 'allDepartments'
+            ],
+        ]) ?>
+
         <?= $form->field($model, 'fk_department')->dropDownList( $model->allDepartments, [
             'class' => ['select2-dropdown-single'],
             'value' => $model->fk_department

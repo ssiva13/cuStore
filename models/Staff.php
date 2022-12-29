@@ -36,6 +36,7 @@ use yii\helpers\ArrayHelper;
  * @property User $fkUser
  * @property Gender $fkGender
  * @property-read array $allDepartments
+ * @property-read array $allPositions
  * @property-read array $allOffices
  * @property-read array $allGenders
  * @property-read array $allHonorifics
@@ -196,5 +197,11 @@ class Staff extends ActiveRecord
         });
         return ArrayHelper::merge(['' => ''], $genders);
     }
-    
+
+    public function getAllPositions(): array
+    {
+        $genders = ArrayHelper::map(Position::find()->all(), 'id', 'name');
+        return ArrayHelper::merge(['' => ''], $genders);
+    }
+
 }

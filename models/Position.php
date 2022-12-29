@@ -45,7 +45,8 @@ class Position extends ActiveRecord
             [['fk_department'], 'required'],
             [['fk_department'], 'integer'],
             [['date_created', 'date_modified', 'deleted_at'], 'safe'],
-            [['slug', 'name'], 'string', 'max' => 20],
+            [['slug'], 'string', 'max' => 20],
+            [['name'], 'string', 'max' => 50],
             [['slug'], 'unique'],
             [['fk_department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::class, 'targetAttribute' => ['fk_department' => 'id']],
         ];
@@ -58,7 +59,7 @@ class Position extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'fk_department' => 'Department ID',
+            'fk_department' => 'Department',
             'slug' => 'Position Slug',
             'name' => 'Position Name',
             'date_created' => 'Date Created',

@@ -13,7 +13,19 @@ use yii\helpers\Html;
         'id' => "staff-form",
     ]); ?>
     <div class="box-body table-responsive p-2">
-    
+
+
+        <?= $this->render('//layouts/partials/_form_errors', [
+            'model' => $model,
+            'relAttributes' => [
+                'honorific' => 'allHonorifics',
+                'fk_position' => 'allPositions',
+                'fk_department' => 'allDepartments',
+                'fk_office' => 'allOffices',
+                'gender' => 'allGenders',
+            ],
+        ]) ?>
+
         <?= $form->field($model, 'honorific')->dropDownList( $model->allHonorifics, [
             'class' => ['select2-dropdown-single'],
             'value' => $model->honorific
@@ -34,9 +46,13 @@ use yii\helpers\Html;
         <?= $form->field($model, 'phone_prefix')->textInput() ?>
         
         <?= $form->field($model, 'phone_number')->textInput() ?>
-        
-        <?= $form->field($model, 'fk_position')->textInput() ?>
-        
+
+        <?= $form->field($model, 'fk_position')->dropDownList( $model->allPositions, [
+            'class' => ['select2-dropdown-single'],
+            'value' => $model->honorific
+        ]) ?>
+
+
         <?= $form->field($model, 'fk_department')->dropDownList( $model->allDepartments, [
             'class' => ['select2-dropdown-single'],
             'value' => $model->fk_department

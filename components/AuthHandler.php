@@ -95,7 +95,7 @@ class AuthHandler
 
                             if ($auth->save()) {
                                 $transaction->commit();
-                                Yii::$app->session->setFlash('success', ["message" => "User successfully created in!"]);
+                                Yii::$app->session->setFlash('success', ["message" => "User successfully logged in!"]);
                                 return Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
                             }
                             else {
