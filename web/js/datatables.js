@@ -8,7 +8,7 @@ $(document).ready(function () {
     let DataTable = $.fn.dataTable;
     $.extend(DataTable.defaults, {
         responsive: true,
-        aaSorting: [[1, 'desc']],
+        aaSorting: [[1, 'asc']],
         lengthChange: true,
         paging: true,
         orderMulti: true,
