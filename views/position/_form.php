@@ -14,7 +14,10 @@ use yii\helpers\Html;
     ]); ?>
     <div class="box-body table-responsive p-2">
         
-        <?= $form->field($model, 'fk_department')->textInput() ?>
+        <?= $form->field($model, 'fk_department')->dropDownList( $model->allDepartments, [
+            'class' => ['select2-dropdown-single'],
+            'value' => $model->fk_department
+        ]) ?>
         
         <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
         

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Position;
 use app\widgets\DataTable;
 use yii\bootstrap5\Html;
 use yii\helpers\Url;
@@ -28,14 +29,15 @@ $this->params['view-actions'] = [
             'dataProvider' => $dataProvider,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                
-                'id',
-                'fk_department',
-                'slug',
                 'name',
-                'date_created',
-                // 'date_modified',
-                // 'deleted_at',
+                'slug',
+                [
+                    'attribute' => 'fk_department',
+                    'header' => '<i class="fa fa-id-card" aria-hidden="true"></i> Department',
+                    'content' => function (Position $model) {
+                        return $model->fkDepartment->name;
+                    },
+                ],
                 
                 ['class' => '\app\widgets\ActionColumn'],
             ],
