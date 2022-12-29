@@ -52,14 +52,14 @@ class GenderController extends BaseController
     /**
      * Displays a single Gender model.
      *
-     * @param string $slug Gender Slug
+     * @param string $id Gender Slug
      *
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(string $slug): string
+    public function actionView(string $id): string
     {
-        $model = $this->findModel($slug);
+        $model = $this->findModel($id);
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('view', [
                 'model' => $model,
@@ -97,14 +97,14 @@ class GenderController extends BaseController
      * Updates an existing Gender model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
-     * @param string $slug Gender Slug
+     * @param string $id Gender Slug
      *
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionUpdate(string $slug)
+    public function actionUpdate(string $id)
     {
-        $model = $this->findModel($slug);
+        $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(Yii::$app->request->referrer);
@@ -123,16 +123,16 @@ class GenderController extends BaseController
      * Deletes an existing Gender model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @param string $slug Gender Slug
+     * @param string $id Gender Slug
      *
      * @return \yii\web\Response
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete(string $slug): Response
+    public function actionDelete(string $id): Response
     {
-        $this->findModel($slug)->delete();
+        $this->findModel($id)->delete();
         return $this->redirect(Yii::$app->request->referrer);
     }
     

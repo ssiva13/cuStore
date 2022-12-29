@@ -52,14 +52,14 @@ class HonorificController extends BaseController
     /**
      * Displays a single Honorific model.
      *
-     * @param string $abbreviation Title/Honorific Abbreviation
+     * @param string $id Title/Honorific Abbreviation
      *
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(string $abbreviation): string
+    public function actionView(string $id): string
     {
-        $model = $this->findModel($abbreviation);
+        $model = $this->findModel($id);
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('view', [
                 'model' => $model,
@@ -97,14 +97,14 @@ class HonorificController extends BaseController
      * Updates an existing Honorific model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
-     * @param string $abbreviation Title/Honorific Abbreviation
+     * @param string $id Title/Honorific Abbreviation
      *
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionUpdate(string $abbreviation)
+    public function actionUpdate(string $id)
     {
-        $model = $this->findModel($abbreviation);
+        $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(Yii::$app->request->referrer);
@@ -123,16 +123,16 @@ class HonorificController extends BaseController
      * Deletes an existing Honorific model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @param string $abbreviation Title/Honorific Abbreviation
+     * @param string $id Title/Honorific Abbreviation
      *
      * @return \yii\web\Response
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete(string $abbreviation): Response
+    public function actionDelete(string $id): Response
     {
-        $this->findModel($abbreviation)->delete();
+        $this->findModel($id)->delete();
         return $this->redirect(Yii::$app->request->referrer);
     }
     
