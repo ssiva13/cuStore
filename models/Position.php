@@ -4,7 +4,9 @@ namespace app\models;
 
 use Yii;
 use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%positions}}".
@@ -18,7 +20,10 @@ use yii\db\ActiveRecord;
  * @property string|null $deleted_at Date Deleted
  *
  * @property Department $fkDepartment
+ * @property-read array $allDepartments
  * @property Staff[] $staff
+ *
+ *
  */
 class Position extends ActiveRecord
 {
@@ -26,7 +31,7 @@ class Position extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%positions}}';
     }
@@ -34,7 +39,7 @@ class Position extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['fk_department'], 'required'],
@@ -49,7 +54,7 @@ class Position extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -65,9 +70,9 @@ class Position extends ActiveRecord
     /**
      * Gets query for [[FkDepartment]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getFkDepartment()
+    public function getFkDepartment(): ActiveQuery
     {
         return $this->hasOne(Department::class, ['id' => 'fk_department']);
     }
@@ -75,10 +80,17 @@ class Position extends ActiveRecord
     /**
      * Gets query for [[Staff]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getStaff()
+    public function getStaff(): ActiveQuery
     {
         return $this->hasMany(Staff::class, ['fk_position' => 'id']);
     }
+    
+    public function getAllDepartments(): array
+    {
+        $departments = ArrayHelper::map(Department::find()->all(), 'id', 'name');
+        return ArrayHelper::merge(['' => ''], $departments);
+    }
+    
 }

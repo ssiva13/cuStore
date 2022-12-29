@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%staff}}".
@@ -33,8 +34,12 @@ use yii\db\ActiveRecord;
  * @property Office $fkOffice
  * @property Position $fkPosition
  * @property User $fkUser
- * @property Gender $gender0
- * @property Honorific $honorific0
+ * @property Gender $fkGender
+ * @property-read array $allDepartments
+ * @property-read array $allOffices
+ * @property-read array $allGenders
+ * @property-read array $allHonorifics
+ * @property Honorific $fkHonorific
  */
 class Staff extends ActiveRecord
 {
@@ -43,7 +48,7 @@ class Staff extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%staff}}';
     }
@@ -51,7 +56,7 @@ class Staff extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['staff_number', 'staff_email', 'first_name', 'last_name', 'fk_user', 'honorific', 'full_name', 'country_code', 'phone_number', 'fk_department', 'fk_position', 'fk_office', 'gender'], 'required'],
@@ -81,7 +86,7 @@ class Staff extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -89,16 +94,16 @@ class Staff extends ActiveRecord
             'staff_email' => 'Staff Email',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
-            'fk_user' => 'User ID',
+            'fk_user' => 'User',
             'honorific' => 'Title/Honorific',
             'full_name' => 'Full Name',
             'staff_extension' => 'Staff Extension',
             'country_code' => 'Country Code',
             'phone_prefix' => 'Phone Prefix',
             'phone_number' => 'Phone Number',
-            'fk_department' => 'Department ID',
+            'fk_department' => 'Department',
             'fk_position' => 'Job Position',
-            'fk_office' => 'Office ID',
+            'fk_office' => 'Office',
             'gender' => 'Gender',
             'date_created' => 'Date Created',
             'date_modified' => 'Date Modified',
@@ -111,7 +116,7 @@ class Staff extends ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFkDepartment()
+    public function getFkDepartment(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Department::class, ['id' => 'fk_department']);
     }
@@ -121,7 +126,7 @@ class Staff extends ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFkOffice()
+    public function getFkOffice(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Office::class, ['id' => 'fk_office']);
     }
@@ -131,7 +136,7 @@ class Staff extends ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFkPosition()
+    public function getFkPosition(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Position::class, ['id' => 'fk_position']);
     }
@@ -141,7 +146,7 @@ class Staff extends ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFkUser()
+    public function getFkUser(): \yii\db\ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'fk_user']);
     }
@@ -151,7 +156,7 @@ class Staff extends ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getGender0()
+    public function getFkGender(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Gender::class, ['slug' => 'gender']);
     }
@@ -161,8 +166,35 @@ class Staff extends ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getHonorific0()
+    public function getFkHonorific(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Honorific::class, ['abbreviation' => 'honorific']);
     }
+    
+    public function getAllDepartments(): array
+    {
+        $departments = ArrayHelper::map(Department::find()->all(), 'id', 'name');
+        return ArrayHelper::merge(['' => ''], $departments);
+    }
+    
+    public function getAllOffices(): array
+    {
+        $offices = ArrayHelper::map(Office::find()->all(), 'id', 'office_name');
+        return ArrayHelper::merge(['' => ''], $offices);
+    }
+    
+    public function getAllGenders(): array
+    {
+        $genders = ArrayHelper::map(Gender::find()->all(), 'slug', 'name');
+        return ArrayHelper::merge(['' => ''], $genders);
+    }
+    
+    public function getAllHonorifics(): array
+    {
+        $genders = ArrayHelper::map(Honorific::find()->all(), 'abbreviation', function ($data){
+            return "{$data['name']} - {$data['abbreviation']}";
+        });
+        return ArrayHelper::merge(['' => ''], $genders);
+    }
+    
 }
