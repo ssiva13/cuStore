@@ -16,16 +16,10 @@ class BuildingController extends BaseController
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+        $behaviors = parent::behaviors();
+        return $behaviors;
     }
     
     /**

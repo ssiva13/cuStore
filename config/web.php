@@ -88,6 +88,22 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
+        'as beforeRequest' => [
+            'class' => 'yii\filters\AccessControl',
+            'rules' => [
+                [
+                    'actions' => ['login', 'error'],
+                    'allow' => true,
+                ],
+                [
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+            ],
+            'denyCallback' => function () {
+                return Yii::$app->response->redirect(['site/login']);
+            },
+        ],
     ],
     'params' => $params,
 ];
