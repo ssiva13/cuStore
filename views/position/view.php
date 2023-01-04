@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Position;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -17,7 +18,12 @@ $this->params['view-actions'] = [];
             'model' => $model,
             'attributes' => [
                 'id',
-                'fk_department',
+                [
+                    'attribute' => 'fk_department',
+                    'value' => function (Position $model) {
+                        return $model->fkDepartment->name;
+                    },
+                ],
                 'slug',
                 'name',
                 'date_created',

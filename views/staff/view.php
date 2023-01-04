@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Staff;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -19,19 +20,40 @@ $this->params['view-actions'] = [];
                 'id',
                 'staff_number',
                 'staff_email:email',
-                'first_name',
-                'last_name',
-                'fk_user',
-                'honorific',
-                'full_name',
+                [
+                    'attribute' => 'full_name',
+                    'value' => function (Staff $model) {
+                        return $model->honorific. ' ' .$model->full_name;
+                    },
+                ],
                 'staff_extension',
                 'country_code',
                 'phone_prefix',
                 'phone_number',
-                'fk_department',
-                'fk_position',
-                'fk_office',
-                'gender',
+                [
+                    'attribute' => 'fk_department',
+                    'value' => function (Staff $model) {
+                        return ($model->fkDepartment) ? $model->fkDepartment->name : $model->fk_department;
+                    },
+                ],
+                [
+                    'attribute' => 'fk_position',
+                    'value' => function (Staff $model) {
+                        return ($model->fkPosition) ? $model->fkPosition->name : $model->fk_position;
+                    },
+                ],
+                [
+                    'attribute' => 'fk_office',
+                    'value' => function (Staff $model) {
+                        return ($model->fkOffice) ? $model->fkOffice->office_name : $model->fk_office;
+                    },
+                ],
+                [
+                    'attribute' => 'gender',
+                    'value' => function (Staff $model) {
+                        return ($model->fkGender) ? $model->fkGender->name : $model->gender;
+                    },
+                ],
                 'date_created',
                 'date_modified',
                 'deleted_at',

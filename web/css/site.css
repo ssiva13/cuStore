@@ -111,3 +111,7 @@ a.desc:after {
 div.actions-toolbar {
     float: right;
 }
+
+div.iti {
+    display: block !important;
+}
