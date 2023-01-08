@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\User;
 use app\search\UserSearch;
-use app\controllers\BaseController;
+use Yii;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -19,15 +19,20 @@ class UserController extends BaseController
      */
     public function behaviors(): array
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+        $behaviors = parent::behaviors();
+        $behaviors['access'] = [
+            'class' => AccessControl::class,
+            'rules' => [
+                [
+                    'actions' => ['view','index', 'profile'],
+                    'allow' => true,
+                    'roles' => ['@']
                 ],
             ],
         ];
+        return $behaviors;
     }
+
     
     /**
      * Lists all User models.
@@ -55,8 +60,14 @@ class UserController extends BaseController
      */
     public function actionView(int $id): string
     {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $model,
+            ]);
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
     
@@ -67,17 +78,33 @@ class UserController extends BaseController
      *
      * @param int $id ID
      *
-     * @return mixed
+     * @return \yii\web\Response
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete(int $id)
+    public function actionDelete(int $id): Response
     {
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
     
+    /**
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionProfile(int $id): string
+    {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('profile', [
+                'model' => $model,
+            ]);
+        }
+        return $this->render('profile', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

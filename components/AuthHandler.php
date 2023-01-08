@@ -3,12 +3,14 @@
 namespace app\components;
 
 use app\models\Auth;
+use app\models\Staff;
 use app\models\User;
 use stdClass;
 use Yii;
 use yii\authclient\ClientInterface;
 use yii\db\Exception;
 use yii\helpers\ArrayHelper;
+use yii\helpers\StringHelper;
 
 /**
  * Created by ssiva on 21/12/2022
@@ -37,7 +39,7 @@ class AuthHandler
         $id = ArrayHelper::getValue($attributes, 'id');
         $nickName = ArrayHelper::getValue($attributes, 'login');
         $nickName = $nickName ?: strstr($email, '@', true);
-    
+        /** @var Auth $auth */
         $auth = Auth::find()->where(['source' => $this->client->getId(), 'source_id' => $id])->one();
         $authUser = new stdClass();
         
@@ -47,8 +49,8 @@ class AuthHandler
                 $authUser->email = $email;
                 $authUser->username = $nickName;
                 $authUser->full_name = ArrayHelper::getValue($attributes, 'name');
-                $authUser->given_name = ArrayHelper::getValue($attributes, 'given_name');
-                $authUser->family_name = ArrayHelper::getValue($attributes, 'family_name');
+                $authUser->first_name = ArrayHelper::getValue($attributes, 'given_name');
+                $authUser->last_name = ArrayHelper::getValue($attributes, 'family_name');
                 $authUser->active = ArrayHelper::getValue($attributes, 'verified_email') ? 1 : 0;
                 $authUser->picture = ArrayHelper::getValue($attributes, 'picture');
                 $authUser->locale = ArrayHelper::getValue($attributes, 'locale');
@@ -73,12 +75,12 @@ class AuthHandler
                     return false;
                 }
                 else {
-                    $authUser->password = Yii::$app->security->generateRandomString(15);
+                    $authUser->password = Yii::$app->security->generateRandomString(32);
                     $user = new User();
                     $user->setAttributes( (array) $authUser );
                     $user->generateAuthKey();
                     $user->generatePasswordResetToken();
-                    
+
                     $transaction = Yii::$app->db->beginTransaction();
                     try {
                         if ($user->save()) {
@@ -87,9 +89,13 @@ class AuthHandler
                                 'source' => $this->client->getId(),
                                 'source_id' => (string)$authUser->id,
                             ]);
+
+                            //update user details
+                            $this->updateUserDetails($authUser, $user);
+
                             if ($auth->save()) {
                                 $transaction->commit();
-                                Yii::$app->session->setFlash('success', ["message" => "User successfully created in!"]);
+                                Yii::$app->session->setFlash('success', ["message" => "User successfully logged in!"]);
                                 return Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
                             }
                             else {
@@ -131,6 +137,9 @@ class AuthHandler
                         'source' => $this->client->getId(),
                         'source_id' => $authUser->id,
                     ]);
+                    //update user details
+                    $this->updateUserDetails($authUser, Yii::$app->user);
+
                     if ($auth->save()) {
                         $transaction->commit();
                         $msg = strtr('Linked {client} account.', ['{client}' => $this->client->getTitle()]);
@@ -160,5 +169,18 @@ class AuthHandler
                 return false;
             }
         }
+    }
+
+    protected function updateUserDetails($authUser, User $user){
+        $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        if($staff = Staff::findOne(['fk_user' => $user->id]) === null){
+            $staff = new Staff();
+        }
+        $staff->setAttributes( (array) $authUser );
+        $staff->fk_user = $user->id;
+        $staff->staff_email = $authUser->email;
+        $staff->staff_number = strtoupper(substr(str_shuffle($str_result),0, 6));
+        $staff->save(false);
+
     }
 }

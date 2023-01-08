@@ -36,13 +36,16 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => env('APP_KEY'),
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -87,6 +90,22 @@ $config = [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
+        ],
+        'as beforeRequest' => [
+            'class' => 'yii\filters\AccessControl',
+            'rules' => [
+                [
+                    'actions' => ['login', 'error'],
+                    'allow' => true,
+                ],
+                [
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+            ],
+            'denyCallback' => function () {
+                return Yii::$app->response->redirect(['site/login']);
+            },
         ],
     ],
     'params' => $params,

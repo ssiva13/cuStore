@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Item;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -16,10 +17,15 @@ $this->params['view-actions'] = [];
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'id',
+
                 'name',
                 'slug',
-                'fk_item_category',
+                [
+                    'attribute' => 'fk_item_category',
+                    'value' => function (Item $model) {
+                        return $model->fkItemCategory->name;
+                    },
+                ],
                 'description',
                 'date_created',
                 'date_modified',

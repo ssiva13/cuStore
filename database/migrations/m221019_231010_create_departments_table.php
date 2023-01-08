@@ -17,8 +17,8 @@ class m221019_231010_create_departments_table extends Migration
             'name' => $this->string(50)->notNull()->comment('Department Name'),
             'slug' => $this->string(30)->notNull(),
             'description' => $this->string(150)->null(),
-            'date_created' => $this->timestamp()->notNull()->comment('Date Created'),
-            'date_modified' => $this->timestamp()->null()->comment('Date Modified'),
+            'date_created' => $this->timestamp()->notNull()->comment('Date Created')->defaultExpression('CURRENT_TIMESTAMP'),
+            'date_modified' => $this->timestamp()->null()->comment('Date Modified')->append('ON UPDATE CURRENT_TIMESTAMP'),
             'deleted_at' => $this->timestamp()->null()->comment('Date Deleted'),
         ]);
         $this->createIndex(

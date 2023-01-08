@@ -15,7 +15,7 @@ class m221221_203639_update_users_table extends Migration
         $this->addColumn(
             '{{%users}}',
             'password_reset_token',
-            $this->string(50)->after('password')->comment('Passod Reset Token')
+            $this->string(50)->after('password')->comment('Password Reset Token')
         );
         
     }

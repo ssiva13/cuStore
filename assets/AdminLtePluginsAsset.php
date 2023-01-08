@@ -20,6 +20,10 @@ class AdminLtePluginsAsset extends \yii\web\AssetBundle
         'datatables-bs4/js/dataTables.bootstrap4.min.js',
         'datatables-buttons/js/dataTables.buttons.min.js',
         'datatables-buttons/js/buttons.bootstrap4.min.js',
+        'datatables-buttons/js/buttons.html5.min.js',
+        'datatables-buttons/js/buttons.print.min.js',
+        'datatables-buttons/js/buttons.flash.min.js',
+        'datatables-buttons/js/buttons.colVis.min.js',
     ];
     
 }

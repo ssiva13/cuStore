@@ -27,6 +27,12 @@ $this->registerJs("
             let floors = response.floors
             bld_floor.empty();
             bld_floor.append(new Option('Select', ''));
+            
+            bld_floor.parent().find('.invalid-feedback').html('').css('display', 'none');
+            if(!floors.length){
+                bld_floor.parent().find('.invalid-feedback').html('Add more floors to this building!').css('display', 'block')
+            }
+            
             $.each(floors, function (key, floor){
                 bld_floor.append(new Option(floor.floor_code + ' - ' + floor.description, floor.id));
             });
@@ -42,7 +48,14 @@ $this->registerJs("
         'id' => "office-form",
     ]); ?>
     <div class="box-body table-responsive">
-        
+
+        <?= $this->render('//layouts/partials/_form_errors', [
+            'model' => $model,
+            'relAttributes' => [
+                'fk_building' => 'allBuildings',
+            ],
+        ]) ?>
+
         <?= $form->field($model, 'office_name')->textInput() ?>
         
         <?= $form->field($model, 'office_code')->textInput(['maxlength' => true]) ?>
@@ -51,7 +64,7 @@ $this->registerJs("
             'class' => ['select2-dropdown-single'],
             'value' => $model->fk_building,
             'onchange' => "getFloors(this)",
-            'onload' => "alert(657646767)",
+            'onload' => "console.log(657646767)",
         ]) ?>
         
         <?= $form->field($model, 'fk_building_floor')->dropDownList( ArrayHelper::map($buildingFloors, 'id', 'floor_code'), [

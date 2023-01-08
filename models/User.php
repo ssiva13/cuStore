@@ -6,6 +6,7 @@ use app\traits\{SoftDeleteTrait, TimeStampsTrait, ValidationTrait};
 use Carbon\Carbon;
 use Exception;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
@@ -25,6 +26,10 @@ use yii\web\IdentityInterface;
  * @property-read mixed $authKey
  * @property string|null $date_modified Date Modified
  * @property string $password_reset_token
+ *
+ * @property Auth[] $auths
+ * @property Staff[] $staff
+ *
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -33,6 +38,8 @@ class User extends ActiveRecord implements IdentityInterface
     const EVENT_NEW_LOGIN = 'new_login';
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+
+    public $staffDetails;
     
     public function init()
     {
@@ -181,7 +188,7 @@ class User extends ActiveRecord implements IdentityInterface
     
     protected function updateLastLogin()
     {
-        Yii::$app->setHomeUrl(Url::toRoute(['/item/index']));
+        Yii::$app->setHomeUrl(Url::to(['item/index']));
         $this->last_login_at = Carbon::now();
         $this->save();
     }
@@ -229,4 +236,25 @@ class User extends ActiveRecord implements IdentityInterface
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
+
+    /**
+     * Gets query for [[Auths]].
+     *
+     * @return ActiveQuery
+     */
+    public function getAuths(): ActiveQuery
+    {
+        return $this->hasOne(Auth::class, ['fk_user' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Staff]].
+     *
+     * @return ActiveQuery
+     */
+    public function getStaff(): ActiveQuery
+    {
+        return $this->hasOne(Staff::class, ['fk_user' => 'id']);
+    }
+
 }

@@ -33,3 +33,21 @@ if (!function_exists('ordinalize')) {
         return Inflector::ordinalize($number);
     }
 }
+if (!function_exists('logger')) {
+    function logger($str)
+    {
+        Yii::info($str);
+    }
+}
+if (!function_exists('logError')) {
+    function logError($str)
+    {
+        Yii::error($str);
+    }
+}
+if (!function_exists('pluralize')) {
+    function pluralize($string): string
+    {
+        return Inflector::pluralize($string);
+    }
+}

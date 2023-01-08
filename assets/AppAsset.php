@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/site.js',
+        'js/datatables.js',
         'js/override.js',
         'js/modal.js'
     ];

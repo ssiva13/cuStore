@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 
 /**
  * This is the model class for table "{{%items}}".
@@ -19,12 +22,13 @@ use yii\helpers\ArrayHelper;
  * @property-read mixed $allCategories
  * @property ItemCategory $fkItemCategory
  */
-class Item extends \yii\db\ActiveRecord
+class Item extends ActiveRecord
 {
+    use SoftDeleteTrait, TimeStampsTrait, ValidationTrait;
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%items}}';
     }
@@ -32,10 +36,10 @@ class Item extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            [['name', 'slug', 'fk_item_category', 'date_created'], 'required'],
+            [['name', 'slug', 'fk_item_category'], 'required'],
             [['fk_item_category'], 'integer'],
             [['date_created', 'date_modified', 'deleted_at'], 'safe'],
             [['name', 'slug'], 'string', 'max' => 50],
@@ -48,7 +52,7 @@ class Item extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -65,14 +69,14 @@ class Item extends \yii\db\ActiveRecord
     /**
      * Gets query for [[FkItemCategory]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getFkItemCategory()
+    public function getFkItemCategory(): ActiveQuery
     {
         return $this->hasOne(ItemCategory::class, ['id' => 'fk_item_category']);
     }
     
-    public function getAllCategories()
+    public function getAllCategories(): array
     {
         $categories = ArrayHelper::map(ItemCategory::find()->all(), 'id', 'name');
         return ArrayHelper::merge(['' => ''], $categories);

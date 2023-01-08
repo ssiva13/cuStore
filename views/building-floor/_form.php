@@ -16,6 +16,14 @@ $floors = array_combine(range(-10, 100), range(-10, 100));
         'id' => "building-floor-form",
     ]); ?>
     <div class="box-body table-responsive p-2">
+
+        <?= $this->render('//layouts/partials/_form_errors', [
+            'model' => $model,
+            'relAttributes' => [
+                'fk_building' => 'allBuildings'
+            ],
+        ]) ?>
+
         <?= $form->field($model, 'fk_building')->dropDownList( $model->allBuildings, [
             'class' => ['select2-dropdown-single'],
             'value' => $model->fk_building
