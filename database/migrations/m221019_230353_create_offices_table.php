@@ -19,8 +19,8 @@ class m221019_230353_create_offices_table extends Migration
             'fk_building' => $this->integer()->unsigned()->notNull(),
             'fk_building_floor' => $this->integer()->unsigned()->notNull(),
             'description' => $this->string(150),
-            'date_created' => $this->timestamp()->notNull()->comment('Date Created'),
-            'date_modified' => $this->timestamp()->null()->comment('Date Modified'),
+            'date_created' => $this->timestamp()->notNull()->comment('Date Created')->defaultExpression('CURRENT_TIMESTAMP'),
+            'date_modified' => $this->timestamp()->null()->comment('Date Modified')->append('ON UPDATE CURRENT_TIMESTAMP'),
             'deleted_at' => $this->timestamp()->null()->comment('Date Deleted'),
         ]);
         $this->addForeignKey(

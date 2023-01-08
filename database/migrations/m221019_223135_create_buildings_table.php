@@ -20,8 +20,8 @@ class m221019_223135_create_buildings_table extends Migration
             'longitude' => $this->decimal(11,8),
             'latitude' => $this->decimal(10,8),
             'description' => $this->string(150),
-            'date_created' => $this->timestamp()->notNull()->comment('Date Created'),
-            'date_modified' => $this->timestamp()->null()->comment('Date Modified'),
+            'date_created' => $this->timestamp()->notNull()->comment('Date Created')->defaultExpression('CURRENT_TIMESTAMP'),
+            'date_modified' => $this->timestamp()->null()->comment('Date Modified')->append('ON UPDATE CURRENT_TIMESTAMP'),
             'deleted_at' => $this->timestamp()->null()->comment('Date Deleted'),
         ]);
         $this->createIndex(

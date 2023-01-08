@@ -22,9 +22,9 @@ class m221226_013514_create_staff_table extends Migration
             'honorific' => $this->string(10)->comment('Title/Honorific'),
             'full_name' => $this->string(50)->notNull()->comment('Full Name'),
             'staff_extension' => $this->string(5)->null()->comment('Staff Extension'),
-            'country_code' => $this->string(4)->unique()->null()->comment('Country Code'),
-            'phone_prefix' => $this->integer(3)->unique()->null()->comment('Phone Prefix'),
-            'phone_number' => $this->integer(9)->unique()->null()->comment('Phone Number'),
+            'country_code' => $this->string(4)->null()->comment('Country Code'),
+            'phone_prefix' => $this->integer(3)->null()->comment('Phone Prefix'),
+            'phone_number' => $this->integer(9)->null()->comment('Phone Number'),
             'fk_department' => $this->integer()->unsigned()->null()->comment('Department ID'),
             'fk_position' => $this->integer()->unsigned()->null()->comment('Job Position'),
             'fk_office' => $this->integer()->unsigned()->null()->comment('Office ID'),
@@ -86,6 +86,13 @@ class m221226_013514_create_staff_table extends Migration
             'slug',
             'NO ACTION',
             'NO ACTION'
+        );
+        
+        $this->createIndex(
+            'un_staff_phone',
+            '{{%staff}}',
+            ['country_code','phone_prefix','phone_number'],
+            true
         );
     }
 

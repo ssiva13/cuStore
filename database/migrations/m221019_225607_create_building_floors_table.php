@@ -18,8 +18,8 @@ class m221019_225607_create_building_floors_table extends Migration
             'floor_code' => $this->string(25)->notNull(),
             'fk_building' => $this->integer()->unsigned()->notNull(),
             'description' => $this->string(150),
-            'date_created' => $this->timestamp()->notNull()->comment('Date Created'),
-            'date_modified' => $this->timestamp()->null()->comment('Date Modified'),
+            'date_created' => $this->timestamp()->notNull()->comment('Date Created')->defaultExpression('CURRENT_TIMESTAMP'),
+            'date_modified' => $this->timestamp()->null()->comment('Date Modified')->append('ON UPDATE CURRENT_TIMESTAMP'),
             'deleted_at' => $this->timestamp()->null()->comment('Date Deleted'),
         ]);
 
