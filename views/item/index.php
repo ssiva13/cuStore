@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Item;
 use app\widgets\DataTable;
 use yii\bootstrap5\Html;
 use yii\helpers\Url;
@@ -31,7 +32,12 @@ $this->params['view-actions'] = [
                 
                 'name',
                 'slug',
-                'fk_item_category',
+                [
+                    'attribute' => 'fk_item_category',
+                    'value' => function (Item $model) {
+                        return $model->fkItemCategory->name;
+                    },
+                ],
                 'description',
                 
                 ['class' => '\app\widgets\ActionColumn'],

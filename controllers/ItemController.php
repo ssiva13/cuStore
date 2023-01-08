@@ -7,6 +7,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * ItemController implements the CRUD actions for Item model.
@@ -26,7 +27,7 @@ class ItemController extends BaseController
     /**
      * Lists all Item models.
      *
-     * @return mixed
+     * @return string
      */
     public function actionIndex()
     {
@@ -48,9 +49,10 @@ class ItemController extends BaseController
      *
      * @param int $id ID
      *
-     * @return mixed
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView($id)
+    public function actionView(int $id): string
     {
         $model = $this->findModel($id);
         if (Yii::$app->request->isAjax) {
@@ -92,7 +94,8 @@ class ItemController extends BaseController
      *
      * @param int $id ID
      *
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -117,9 +120,12 @@ class ItemController extends BaseController
      *
      * @param int $id ID
      *
-     * @return mixed
+     * @return \yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id): Response
     {
         $this->findModel($id)->delete();
         return $this->redirect(Yii::$app->request->referrer);
@@ -134,7 +140,7 @@ class ItemController extends BaseController
      * @return Item the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id): Item
     {
         if (($model = Item::findOne($id)) !== null) {
             return $model;
