@@ -34,16 +34,16 @@ $this->params['view-actions'] = [];
 
                         <div class="col-sm-4">
                             <div class="description-block">
-                                <h5 class="description-header">35</h5>
-                                <span class="description-text">PRODUCTS Borrowed</span>
+                                <?= Html::tag('h5', "Office", ['class' => 'description-header']) ?>
+                                <?= Html::tag('span', ($model->staff && $model->staff->fkOffice) ? $model->staff->fkOffice->office_name : "", ['class' => 'description-text']) ?>
                             </div>
 
                         </div>
 
                         <div class="col-sm-4 border-right">
                             <div class="description-block">
-                                <h5 class="description-header">Department</h5>
-                                <span class="description-text">Department Description</span>
+                                <?= Html::tag('h5', "Department", ['class' => 'description-header']) ?>
+                                <?= Html::tag('span', ($model->staff && $model->staff->fkDepartment) ? $model->staff->fkDepartment->name : "", ['class' => 'description-text']) ?>
                             </div>
 
                         </div>

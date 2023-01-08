@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use yii\filters\AccessControl;
+
 class DashboardController extends BaseController
 {
     /**
@@ -10,6 +12,16 @@ class DashboardController extends BaseController
     public function behaviors(): array
     {
         $behaviors = parent::behaviors();
+        $behaviors['access'] = [
+            'class' => AccessControl::class,
+            'rules' => [
+                [
+                    'actions' => ['lookups','index'],
+                    'allow' => true,
+                    'roles' => ['@']
+                ],
+            ],
+        ];
         return $behaviors;
     }
     
