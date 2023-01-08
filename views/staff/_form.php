@@ -42,18 +42,15 @@ use yii\helpers\Html;
         
         <?= $form->field($model, 'staff_extension')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'phone_prefix')->textInput() ?>
+        <?= $form->field($model, 'country_code')->textInput(['maxlength' => true]) ?>
         
-        <?= $form->field($model, 'phone_number')->widget(PhoneInput::className(), [
-            'jsOptions' => [
-//                'allowExtensions' => true,
-                'preferredCountries' => ['ke'],
-            ]
-        ]); ?>
+        <?= $form->field($model, 'phone_prefix')->textInput() ?>
+
+        <?= $form->field($model, 'phone_number')->textInput() ?>
 
         <?= $form->field($model, 'fk_position')->dropDownList( $model->allPositions, [
             'class' => ['select2-dropdown-single'],
-            'value' => $model->honorific
+            'value' => $model->fk_position
         ]) ?>
 
 

@@ -57,17 +57,6 @@ class Staff extends ActiveRecord
         return '{{%staff}}';
     }
 
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => PhoneInputBehavior::className(),
-                'phoneAttribute' => 'phone_number',
-                'countryCodeAttribute' => 'country_code',
-                'saveformat' => PhoneNumberFormat::INTERNATIONAL,
-            ],
-        ];
-    }
     /**
      * {@inheritdoc}
      */
@@ -76,21 +65,17 @@ class Staff extends ActiveRecord
         return [
             [['staff_number', 'staff_email', 'first_name', 'last_name', 'fk_user', 'honorific', 'full_name', 'country_code', 'phone_number', 'fk_department', 'fk_position', 'fk_office', 'gender'], 'required'],
             [['fk_user', 'phone_prefix', 'fk_department', 'fk_position', 'fk_office', 'country_code'], 'integer'],
-            [['phone_number'], 'string'],
-            [['phone_number'], PhoneInputValidator::class],
+            [['phone_number'], 'string', 'max' => 10],
             [['date_created', 'date_modified', 'deleted_at'], 'safe'],
             [['staff_number'], 'string', 'max' => 6],
             [['staff_email', 'full_name'], 'string', 'max' => 50],
             [['first_name', 'last_name'], 'string', 'max' => 30],
             [['honorific'], 'string', 'max' => 10],
             [['staff_extension'], 'string', 'max' => 5],
-//            [['country_code'], 'string', 'max' => 4],
+            [['country_code'], 'string', 'max' => 4],
             [['gender'], 'string', 'max' => 20],
             [['staff_number'], 'unique'],
             [['staff_email'], 'unique'],
-//            [['country_code'], 'unique'],
-            [['phone_number'], 'unique'],
-//            [['phone_prefix'], 'unique'],
             [['fk_department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::class, 'targetAttribute' => ['fk_department' => 'id']],
             [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::class, 'targetAttribute' => ['gender' => 'slug']],
             [['honorific'], 'exist', 'skipOnError' => true, 'targetClass' => Honorific::class, 'targetAttribute' => ['honorific' => 'abbreviation']],

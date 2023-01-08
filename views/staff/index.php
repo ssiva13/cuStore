@@ -36,7 +36,12 @@ $this->params['view-actions'] = [
                 ],
                 'staff_number',
                 'staff_email:email',
-                'phone_number',
+                [
+                    'attribute' => 'phone_number',
+                    'value' => function (Staff $model) {
+                        return $model->country_code. '(' .$model->phone_prefix. ')' .$model->phone_number;
+                    },
+                ],
                 [
                     'attribute' => 'fk_department',
                     'value' => function (Staff $model) {
