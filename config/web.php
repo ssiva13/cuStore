@@ -15,6 +15,11 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'apiV1' => [
+            'class' => 'app\modules\api\v1\apiV1Module'
+        ]
+    ],
     'components' => [
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
@@ -39,6 +44,9 @@ $config = [
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ],
+        ],
+        'response' => [
+            'class' => 'yii\web\Response',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -89,6 +97,14 @@ $config = [
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => [
+                        'apiV1/gender',
+                        'apiV1/department',
+                    ],
+                    'except' => ['delete']
+                ],
             ],
         ],
         'as beforeRequest' => [
