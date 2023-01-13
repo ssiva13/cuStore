@@ -6,6 +6,7 @@ use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%building_floors}}".
@@ -37,7 +38,7 @@ class BuildingFloor extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['floor_number', 'floor_code', 'fk_building'], 'required'],
@@ -46,7 +47,10 @@ class BuildingFloor extends ActiveRecord
             [['floor_code'], 'string', 'max' => 25],
             [['description'], 'string', 'max' => 150],
             [['fk_building', 'floor_number', 'floor_code'], 'unique', 'targetAttribute' => ['fk_building', 'floor_number', 'floor_code']],
-            [['fk_building'], 'exist', 'skipOnError' => true, 'targetClass' => Building::class, 'targetAttribute' => ['fk_building' => 'id']],
+            [
+                ['fk_building'], 'exist', 'skipOnError' => true, 'targetClass' => Building::class, 'targetAttribute' => ['fk_building' => 'id'],
+                'message' => '{attribute} is invalid. See '. Url::to(['/apiV1/building'], true)
+            ],
         ];
     }
 

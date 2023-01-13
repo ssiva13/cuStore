@@ -6,6 +6,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%items}}".
@@ -45,7 +46,10 @@ class Item extends ActiveRecord
             [['name', 'slug'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 150],
             [['slug'], 'unique'],
-            [['fk_item_category'], 'exist', 'skipOnError' => true, 'targetClass' => ItemCategory::class, 'targetAttribute' => ['fk_item_category' => 'id']],
+            [
+                ['fk_item_category'], 'exist', 'skipOnError' => true, 'targetClass' => ItemCategory::class, 'targetAttribute' => ['fk_item_category' => 'id'],
+                'message' => '{attribute} is invalid. See '. Url::to(['/apiV1/item-category'], true)
+            ],
         ];
     }
     

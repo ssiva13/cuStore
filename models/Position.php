@@ -7,6 +7,7 @@ use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%positions}}".
@@ -48,7 +49,10 @@ class Position extends ActiveRecord
             [['slug'], 'string', 'max' => 20],
             [['name'], 'string', 'max' => 50],
             [['slug'], 'unique'],
-            [['fk_department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::class, 'targetAttribute' => ['fk_department' => 'id']],
+            [
+                ['fk_department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::class, 'targetAttribute' => ['fk_department' => 'id'],
+                'message' => '{attribute} is invalid. See '. Url::to(['/apiV1/department'], true)
+            ],
         ];
     }
 
