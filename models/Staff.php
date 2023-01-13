@@ -9,6 +9,7 @@ use Yii;
 use app\traits\{ SoftDeleteTrait, TimeStampsTrait, ValidationTrait };
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%staff}}".
@@ -76,12 +77,30 @@ class Staff extends ActiveRecord
             [['gender'], 'string', 'max' => 20],
             [['staff_number'], 'unique'],
             [['staff_email'], 'unique'],
-            [['fk_department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::class, 'targetAttribute' => ['fk_department' => 'id']],
-            [['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::class, 'targetAttribute' => ['gender' => 'slug']],
-            [['honorific'], 'exist', 'skipOnError' => true, 'targetClass' => Honorific::class, 'targetAttribute' => ['honorific' => 'abbreviation']],
-            [['fk_office'], 'exist', 'skipOnError' => true, 'targetClass' => Office::class, 'targetAttribute' => ['fk_office' => 'id']],
-            [['fk_position'], 'exist', 'skipOnError' => true, 'targetClass' => Position::class, 'targetAttribute' => ['fk_position' => 'id']],
-            [['fk_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['fk_user' => 'id']],
+            [
+                ['fk_department'], 'exist', 'skipOnError' => true, 'targetClass' => Department::class, 'targetAttribute' => ['fk_department' => 'id'],
+                'message' => 'Gender is invalid. See '. Url::to(['/apiV1/department'], true)
+            ],
+            [
+                ['gender'], 'exist', 'skipOnError' => true, 'targetClass' => Gender::class, 'targetAttribute' => ['gender' => 'slug'],
+                'message' => 'Gender is invalid. See '. Url::to(['/apiV1/gender'], true)
+            ],
+            [
+                ['honorific'], 'exist', 'skipOnError' => true, 'targetClass' => Honorific::class, 'targetAttribute' => ['honorific' => 'abbreviation'],
+                'message' => 'Gender is invalid. See '. Url::to(['/apiV1/honorific'], true)
+            ],
+            [
+                ['fk_office'], 'exist', 'skipOnError' => true, 'targetClass' => Office::class, 'targetAttribute' => ['fk_office' => 'id'],
+                'message' => 'Gender is invalid. See '. Url::to(['/apiV1/office'], true)
+            ],
+            [
+                ['fk_position'], 'exist', 'skipOnError' => true, 'targetClass' => Position::class, 'targetAttribute' => ['fk_position' => 'id'],
+                'message' => 'Gender is invalid. See '. Url::to(['/apiV1/position'], true)
+            ],
+            [
+                ['fk_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['fk_user' => 'id'],
+                'message' => 'Gender is invalid. See '. Url::to(['/apiV1/user'], true)
+            ],
         ];
     }
 
