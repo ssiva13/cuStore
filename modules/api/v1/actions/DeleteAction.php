@@ -3,7 +3,7 @@
  * Created by ssiva on 08/01/2023
  */
 
-namespace app\modules\api\v1;
+namespace app\modules\api\v1\actions;
 
 use Yii;
 use yii\web\Response;

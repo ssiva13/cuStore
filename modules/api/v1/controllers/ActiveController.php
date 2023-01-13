@@ -58,7 +58,7 @@ class ActiveController extends \yii\rest\ActiveController
     {
         $actions = parent::actions();
         $actions['delete'] = [
-            'class' => 'app\modules\api\v1\DeleteAction',
+            'class' => 'app\modules\api\v1\actions\DeleteAction',
             'modelClass' => $this->modelClass,
             'checkAccess' => [$this, 'checkAccess'],
         ];
