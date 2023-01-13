@@ -46,7 +46,7 @@ class Position extends ActiveRecord
             [['fk_department'], 'required'],
             [['fk_department'], 'integer'],
             [['date_created', 'date_modified', 'deleted_at'], 'safe'],
-            [['slug'], 'string', 'max' => 20],
+            [['slug'], 'string', 'max' => 30],
             [['name'], 'string', 'max' => 50],
             [['slug'], 'unique'],
             [
